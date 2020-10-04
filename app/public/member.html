@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+  <title>Book Page</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="css\site.css">
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">Oconee County Fire Rescue</a>
+        </div>
+        <ul id="menu">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link active" href="member.html">Member</a></li>
+          <li><a class="nav-link" href="cert.html">Certification</a></li>
+          <li><a class="nav-link" href="report.html">Report</a></li>
+        </ul>
+      </div>
+    </nav>
+  <!-- Header -->
+    <div id="header">
+      <div class="container">
+      <!-- Logo -->
+        <div id="logo">
+          <h1><a href="index.html">Welcome to Oconee County Fire Rescue</a></h1>
+          <span>Oconee County, GA</span>
+        </div>
+      </div>
+    </div>
+  <!-- Header -->
+
+  <!-- Main -->
+    <div id="main">
+      <div class="container">
+        <header>
+          <h2 id="bigheader">Welcome to my Booklist</h2>
+        </header>
+      <p>The followings are the books I want to read throughout this year. Feel free to add any of your favorite books. You could know my taste based on the list provided.</p>
+          <button type="button" class="btn btn-primary float-right goupper" data-toggle="modal" data-target="#exampleModal" >Add</button>
+
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Add your Recommendation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group col-12">
+                    <label for="book-title" class="col-form-label">Title</label>
+                    <textarea rows="1" class="form-control" id="inputTitle"></textarea>
+                  </div>
+                  <div class="form-group col-12">
+                    <label for="book-author" class="col-form-label">Author(s)</label>
+                    <textarea rows="1" class="form-control" id="inputAuthor"></textarea>
+                    <small id="authorHelp" class="form-text text-muted">
+                      If multiple authors, please use comma(,) to seperate each author.
+                    </small>
+                </div>
+                <div class="form-group col-12">
+                  <label for="book-publisher" class="col-form-label">Publisher</label>
+                  <textarea rows="1" class="form-control" id="inputPublisher"></textarea>
+                </div>
+                <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="book-publishedyear">Year Published</label>
+                  <select id="inputYear" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>2020</option>
+                    <option>2019</option>
+                    <option>2018</option>
+                    <option>2017</option>
+                    <option>2016</option>
+                    <option>2015</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="book-pages">Page Count</label>
+                  <select id="inputPage" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>200</option>
+                    <option>201</option>
+                    <option>202</option>
+                    <option>203</option>
+                    <option>204</option>
+                    <option>205</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="book-price">MSRP</label>
+                  <input type="number" step="0.01" class="form-control" id="inputPrice">
+                </div>
+              </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button onClick="myFunction()" class="btn btn-primary">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--table-->
+      <table class="table" id="bookTable">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author(s)</th>
+          <th scope="col">Year Published</th>
+          <th scope="col">Publisher</th>
+          <th scope="col">Page Count</th>
+          <th scope="col">MSRP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Less</td>
+          <td>Andrew Sean Greer</td>
+          <td>2017</td>
+          <td>Lee Boudreaux Books</td>
+          <td>273</td>
+          <td>$20.69</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>1984</td>
+          <td>George Orwell</td>
+          <td>1961</td>
+          <td>Signet Classic</td>
+          <td>328</td>
+          <td>$6.86</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Outliers: The Story of Success</td>
+          <td>Malcolm Gladwell</td>
+          <td>2011</td>
+          <td>Back Bay Books</td>
+          <td>336</td>
+          <td>$12.99</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>Factfulness</td>
+          <td>Hans Rosling, Anna Rosling Ola Rosling</td>
+          <td>2020</td>
+          <td>Flatiron Books</td>
+          <td>352</td>
+          <td>$11.59</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>The Intelligent Investor</td>
+          <td>Benjamin Graham, Jason Zweig, Warren E. Buffet</td>
+          <td>2006</td>
+          <td>Harper Business</td>
+          <td>640</td>
+          <td>$14.29</td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Main -->
+
+  <!-- Footer -->
+  <footer id="footer">
+      <div class="row pad"></div>
+      <div class="bottom">
+        <center>
+        <p>Conditions of Use
+        <span>&#47;</span> Privacy Notice
+        <span>&#47;</span> Interest-Based Ads
+        <span>&#47;</span> © 2020, Briley Kim
+        </p>
+        </center>
+      </div>
+  </footer>
+  <!-- Footer -->
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <!-- Include sort types you need -->
+  <script src='js/tablesort.min.js'></script>
+  <script type="text/javascript" src="js/index.app.js"></script>
+  <script>
+    //tablesort plugin from https://github.com/tristen/tablesort
+    new Tablesort(document.getElementById('bookTable'));
+  </script>
+</body>
+</html>
