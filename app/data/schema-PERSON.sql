@@ -25,8 +25,10 @@ CREATE TABLE person (
 
 INSERT INTO person (firstName, lastName, address, city, state, zip, workPhone, mobilePhone, homePhone, dateOfBirth, gender, position, radioNumber, stationNumber, isActive, email, startDate, department) VALUES
 ("Kathryn", "Pryde", "1123 Xavier School Drive", "Watkinsville",  "GA", "30677", "7075551234", "7075552345", "", "1967-11-03", "Female", "Chief", "A-1", "9999", "Y", "kathryn.pryde@gmail.com", "2008-01-03", "ALL"),
-
-
+("Piotr",  "Rasputin", "A31 Mother Russia Road", "Seattle", "WA", "98133", "", "2065559876","", "1977-08-09", "Male", "Fire Chief", "841", "8", "Y","piotr.rasputin@gmail.com", "2009-01-09", "Fire Suppression"
+("Warren",  "Worthington III", "1140 Experiment Station Rd", "Watkinsville", "GA", "30677", "7065553945", "", "", "1988-07-09", "Male", "Fire Equipment Operator", "122", "1", "Y", "warren.worthington@gmail.com","2009-02-09","Fire Suppression"
+/* Position: Probationary firefighter, Firefighter, Driver engineer (DE), or fire equipment operator (FEO), Lieutenant, Captain, Battalion chief, Assistant chief, Fire chief.*/
+/* Fire department: fire suppression, emergency medical response, hazardous materials response, fire prevention, and education. */
 
 CREATE TABLE userLogin(
   userID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
