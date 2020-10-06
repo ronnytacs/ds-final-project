@@ -1,4 +1,6 @@
-USE final_project;
+CREATE DATABASE finalProject;
+
+USE finalProject;
 
 CREATE TABLE person (
   personID INTEGER NOT NULL AUTO_INCREMENT,
@@ -7,14 +9,14 @@ CREATE TABLE person (
   address VARCHAR(255) NOT NULL,
   city VARCHAR(255) NOT NULL,
   state VARCHAR(2) NOT NULL,
-  zip VARCHAR(5) NOT NULL,
+  zip VARCHAR(10) NOT NULL,
   workPhone VARCHAR(10),
   mobilePhone VARCHAR(10),
   homePhone VARCHAR(10),
   dateOfBirth DATE NOT NULL,
   gender VARCHAR(255) NOT NULL,
   position VARCHAR(255) NOT NULL,
-  radioNumber INTEGER NOT NULL,
+  radioNumber VARCHAR(255) NOT NULL,
   stationNumber INTEGER NOT NULL,
   isActive BOOL NOT NULL,
   email VARCHAR(255) NOT NULL,
@@ -29,6 +31,7 @@ INSERT INTO person (firstName, lastName, address, city, state, zip, workPhone, m
 ("Warren",  "Worthington III", "1140 Experiment Station Rd", "Watkinsville", "GA", "30677", "7065553945", "", "", "1988-07-09", "Male", "Fire Equipment Operator", "122", "1", "Y", "warren.worthington@gmail.com","2009-02-09","Fire Suppression"
 /* Position: Probationary firefighter, Firefighter, Driver engineer (DE), or fire equipment operator (FEO), Lieutenant, Captain, Battalion chief, Assistant chief, Fire chief.*/
 /* Fire department: fire suppression, emergency medical response, hazardous materials response, fire prevention, and education. */
+
 
 CREATE TABLE userLogin(
   userID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
@@ -45,6 +48,13 @@ CREATE TABLE certification(
   PRIMARY KEY (certID)
 );
 
+INSERT INTO certification(certName, certAgency, standardExpiry) VALUES
+("CPR", "CPR for Healthcare Providers/American Heart Association", 2),
+("CPR", "CPR for the Professional Rescuer/American Red Cross", 2),
+("Firefighter I ", "Athens Technical College", 3),
+("Firefighter I", "Ivy Technical College", 3),
+("POST", "Georgia POST Academy", 5)
+
 CREATE TABLE recievedCerts(
     recievedID INTEGER NOT NULL,
     certID INTEGER NOT NULL,
@@ -54,4 +64,4 @@ CREATE TABLE recievedCerts(
     PRIMARY KEY (recievedID),
     FOREIGN KEY (certID) REFERENCES certification(certID),
     FOREIGN KEY (personID) REFERENCES person(personID)
-);
+)
