@@ -1,47 +1,64 @@
 /*jshint esversion: 6 */
 
 var app = new Vue({
-  el: '#DateFormat',
+  el: '#Member',
   data: {
-      userName:'',
-      userEmail:'',
-      userImgLarge:'',
-      userImgThumb:'',
-      userOrigin:'',
-      userDob: '',
-      userAge:''
-    },
+    memberList: [],
+    certList: [],
+    activeP: null,
+    newMemberForm: {}
+  },
   computed: {
-    age() {
-      return moment().diff(this.userDob, 'years');
+    activePName() {
+      return this.activeP ? this.activeP.lastName + ', ' + this.activeP.firstName : ''
     }
   },
-  created() {
-    this.fetchUser();
-  },
-
   methods: {
-    fetchUser: function() {
-      fetch("https://randomuser.me/api/")
-      .then( response => response.json() )
-      .then( data => {
-        var userData = data.results[0];
-        console.log(userData);
-        this.userName = userData.name.first + " " + userData.name.last;
-        this.userEmail = userData.email;
-        this.userImgLarge = userData.picture.large;
-        this.userImgThumb = userData.picture.thumbnail;
-        this.userOrigin = userData.location.country;
-        this.userAge = userData.dob.age;
-        this.userDob = userData.dob.date;
-
-        console.log('user country'+userData.location.country);
-      });
+    newPData() {
+      return {
+        firstName: "",
+        lastName: "",
+        position: "",
+        radioNumber: "",
+        stationNumber:"",
+        email:"",
+        department:""
+      }
     },
-    formatDate(d) {
-      return moment(d).format("MM/DD/YYYY");
-    }
+    handlenewMemberForm( evt ) {
+          // evt.preventDefault();  // Redundant w/ Vue's submit.prevent
 
+          // TODO: Validate the data!
 
-  }
-});
+          fetch('api/records/post.php', {
+            method:'POST',
+            body: JSON.stringify(this.newMemberForm),
+            headers: {
+              "Content-Type": "application/json; charset=utf-8"
+            }
+          })
+          .then( response => response.json() )
+          .then( json => {
+            console.log("Returned from post:", json);
+            // TODO: test a result was returned!
+            this.memberList.push(json[0]);
+          });
+
+          console.log("Creating (POSTing)...!");
+          console.log(this.newMemberForm);
+
+          this.newMemberForm = this.newPData();
+        }
+      },
+created() {
+  fetch("api/records/")
+  .then( response => response.json() )
+  .then( json => {
+    this.memberList = json;
+
+    console.log(json)}
+  );
+
+  this.newMemberForm = this.newPData();
+}
+})

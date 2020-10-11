@@ -19,17 +19,20 @@ $db = DbConnection::getConnection();
 // Step 2: Create & run the query
 // Note the use of parameterized statements to avoid injection
 $stmt = $db->prepare(
-  'INSERT INTO Patient (patientGuid, firstName, lastName, dob, sexAtBirth)
-  VALUES (?, ?, ?, ?, ?)'
+  'INSERT INTO person (personID, firstName, lastName, position, radioNumber, stationNumber, email, department)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
 );
 
 $stmt->execute([
   $guid,
   $_POST['firstName'],
   $_POST['lastName'],
-  $_POST['dob'],
-  $_POST['sexAtBirth']
-]);
+  $_POST['position'],
+  $_POST['radioNumber'],
+  $_POST['stationNumber'],
+  $_POST['email'],
+  $_POST['department']
+  ]);
 
 // If needed, get auto-generated PK from DB
 // $pk = $db->lastInsertId();  // https://www.php.net/manual/en/pdo.lastinsertid.php
