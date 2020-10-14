@@ -1,4 +1,3 @@
-show databases;
 CREATE DATABASE finalProject;
 
 USE finalProject;
@@ -61,8 +60,8 @@ INSERT INTO certification(certName, certAgency, standardExpiry) VALUES
 ("Due Regard", "National Registry of Emergency Medical Technicians", 2),
 ("Paramedic", "National Registry of Emergency Medical Technicians", 2);
 
-CREATE TABLE recievedCerts(
-    recievedID INTEGER NOT NULL AUTO_INCREMENT,
+CREATE TABLE receivedCerts(
+    receivedID INTEGER NOT NULL AUTO_INCREMENT,
     certID INTEGER NOT NULL,
     personID INTEGER NOT NULL,
     dateRecieved DATE NOT NULL,
@@ -72,8 +71,7 @@ CREATE TABLE recievedCerts(
     FOREIGN KEY (personID) REFERENCES person(personID)
 );
 
-INSERT INTO recievedCerts(certID, personID, dateRecieved, dateExpired) VALUES
-<<<<<<< Updated upstream
+INSERT INTO receivedCerts(certID, personID, dateRecieved, dateExpired) VALUES
 (1, 1, "2017-07-16", "2019-07-16"),
 (4, 1, "2018-08-11", "2020-08-11"),
 (6, 1, "2020-02-10", ""),
@@ -85,9 +83,3 @@ INSERT INTO recievedCerts(certID, personID, dateRecieved, dateExpired) VALUES
 (1, 3, "2018-07-15", "2020-07-15"),
 (3, 3, "2017-08-08", "2020-08-08"),
 (9, 3, "2017-10-10", "2019-10-10");
-=======
-(5, 1, TO_DATE('8/1/2018', 'MM/DD/YYYY'), TO_DATE('8/1/2020', 'MM/DD/YYYY')),
-(1, 1, TO_DATE('7/1/2017', 'MM/DD/YYYY'), TO_DATE('7/1/2019', 'MM/DD/YYYY')),
-(10, 1, TO_DATE('/1/2018', 'MM/DD/YYYY'), TO_DATE('8/1/2020', 'MM/DD/YYYY')),
-(11, 1, TO_DATE('8/1/2018', 'MM/DD/YYYY'), TO_DATE('8/1/2020', 'MM/DD/YYYY')),
->>>>>>> Stashed changes
