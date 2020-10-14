@@ -41,96 +41,98 @@
 <div id="Member">
     <div id="main">
       <div class="container">
-        <header>
-          <h2 id="bigheader">Welcome to my Member List</h2>
-        </header>
+        <h2 id="bigheader">Welcome to the Member Page</h2>
       <p>In this page you can see our former and current member. You can click each member to see the current and expired certifications for that person.</p>
-
-          <button type="button" class="btn btn-primary float-right goupper" data-toggle="modal" data-target="#exampleModal" >Add</button>
-
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <form method="post" v-on:submit.prevent="handlenewMemberForm">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Add a New Member</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label for="newPFirstName">First Name</label>
-                        <input type="text" v-model="newMemberForm.firstName" class="form-control" id="newPFirstName" placeholder="Jane">
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="newPtLastName">Last Name</label>
-                        <input type="text" v-model="newMemberForm.lastName" class="form-control" id="newPLastName" placeholder="Doe">
-                      </div>
-                    </div>
-                    <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="newPPoition">Position</label>
-                      <input type="text" v-model="newMemberForm.position" class="form-control" id="newPPoition">
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="newPDepartment">Department</label>
-                      <input type="text" v-model="newMemberForm.department" class="form-control" id="newPDepartment">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="newPRadioNumber">Radio Number</label>
-                      <input type="text" v-model="newMemberForm.radioNumber" class="form-control" id="newPRadioNumber">
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="newPStationNumber">Station Number</label>
-                      <input type="text" v-model="newMemberForm.stationNumber" class="form-control" id="newPStationNumber">
-                    </div>
-                  </div>
-                    <div class="form-group">
-                      <label for="newPEmail">Email address</label>
-                      <input type="email" v-model="newMemberForm.email" class="form-control" id="newPEmail" aria-describedby="emailHelp" placeholder="Enter email">
-                    </div>
-                  <button type="submit" class="btn btn-primary">Create</button>
-                </div>
-                </form>
-            </div>
-          </div>
-        </div>
-
-      <!--List of Members-->
-
-        <table class="table table-striped">
+      <br><br>
+    <div class="row">
+      <div class="col-4">
+    <h4>List of Members</h4>
+    <p> Please select the name to see the basic information and certifications of the member.</p>
+      <table class="table table-striped" >
         <thead>
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Position</th>
-            <th>Radio Number</th>
-            <th>Station Number</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Delete</th>
-            <th>Update</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="p in memberList" :key="i">
+          <tr v-for="p in memberList" :key="i" v-on:click="activeP = p">
              <th scope="row">{{ p.personID  }}</th>
              <td>{{ p.firstName }} {{ p.lastName }}</td>
-             <td>{{ p.position }}</td>
-             <td>{{ p.radioNumber }}</td>
-             <td>{{ p.stationNumber }}</td>
-             <td>{{ p.email }}</td>
-             <td>{{ p.department }}</td>
-             <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
-             <td><button type="button" class="btn btn-outline-dark">Update</button></td>
           </tr>
          </tbody>
       </table>
+
+      <!-- Add Member Button-->
+      <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >Add New Member</button>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <form method="post" v-on:submit.prevent="handlenewMemberForm">
+              <div class="modal-header">
+                <h5 class="modal-title">Add a New Member</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="newPFirstName">First Name</label>
+                    <input type="text" v-model="newMemberForm.firstName" class="form-control" id="newPFirstName" placeholder="Jane">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="newPtLastName">Last Name</label>
+                    <input type="text" v-model="newMemberForm.lastName" class="form-control" id="newPLastName" placeholder="Doe">
+                  </div>
+                </div>
+                <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="newPPoition">Position</label>
+                  <input type="text" v-model="newMemberForm.position" class="form-control" id="newPPoition">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="newPDepartment">Department</label>
+                  <input type="text" v-model="newMemberForm.department" class="form-control" id="newPDepartment">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="newPRadioNumber">Radio Number</label>
+                  <input type="text" v-model="newMemberForm.radioNumber" class="form-control" id="newPRadioNumber">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="newPStationNumber">Station Number</label>
+                  <input type="text" v-model="newMemberForm.stationNumber" class="form-control" id="newPStationNumber">
+                </div>
+              </div>
+                <div class="form-group">
+                  <label for="newPEmail">Email address</label>
+                  <input type="email" v-model="newMemberForm.email" class="form-control" id="newPEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+              <button type="submit" class="btn btn-primary float-right">Create</button>
+            </div>
+            </form>
+        </div>
       </div>
+    </div>
+
+
+      </div>
+
+      <div class="col-8">
+        <h4> Details</h4>
+          <input id="pName" v-bind:value="activePName" readonly>
+          {{activeP.position}}
+          {{ activeP.radioNumber }}
+          {{ activeP.stationNumber }}
+          {{ activeP.email }}
+          {{ activeP.department }}
+          {{ activeP.isActive }}
+          {{ activeP.startDate }}
+      </div>
+    </div>
     </div>
 </div>
   <!-- Main -->

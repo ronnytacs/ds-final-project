@@ -19,8 +19,8 @@ $db = DbConnection::getConnection();
 // Step 2: Create & run the query
 // Note the use of parameterized statements to avoid injection
 $stmt = $db->prepare(
-  'INSERT INTO person (personID, firstName, lastName, position, radioNumber, stationNumber, email, department)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+  'INSERT INTO person (firstName, lastName, position, radioNumber, stationNumber, email, department)
+  VALUES (?, ?, ?, ?, ?, ?, ?)'
 );
 
 $stmt->execute([
