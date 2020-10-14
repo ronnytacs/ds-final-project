@@ -38,46 +38,18 @@
   <!-- Header -->
 
   <!-- Main -->
-<div class="col-6">
-  <div id="Member" >
-   <form v-on:submit.prevent="fetchMember())" >
-
-      <h1>New Profile</h1>
-      <div class="form-group">
-        <label for="Name">User Name</label>
-        <input class="form-control" v-bind:value="userName" readonly>
+  <div class="container-fluid">
+    <div class="row" id="triagePage">
+      <div id="cardPaneLeft" class="col cardPane cardPaneLeft">
+          <h1>Select a report</h1>
+          
       </div>
 
-    <div class="form-group">
-      <label for="Email">Email</label>
-      <a v-bind:href=" 'mailto:' + userEmail">{{ userEmail }}</a></p>
+      <div class="col cardPane cardPaneRight">
+        <h1>report name based on option</h1>
+      </div>
     </div>
-
-    <div class="form-group">
-      <label for="Image">User Image</label>
-      <a v-bind:href="userImgLarge">
-        <p v-if="userImgLarge"><img :src="userImgLarge" alt="userProfile"></p>
-        <p>source: {{ userImgLarge }}</p>
-      </a>
-    </div>
-    <div class="form-group">
-      <label for="Origin">Origin</label>
-      <input class="form-control" v-bind:value="userOrigin" readonly>
-    </div>
-    <div class="form-group">
-      <label for="Birthdate">Birthdate</label>
-      <input class="form-control" v-bind:value="formatDate(userDob)" readonly>
-    </div>
-    <div class="form-group">
-      <label for="Age">Age</label>
-      <input class="form-control" v-bind:value="userAge" readonly>
-    </div>
-  <button class="btn btn-primary">Meet New People</button>
-
-  </form>
-<p>If you want to meet another person, click the button below!</p>
-</div>
-</div>
+  </div>
   <!-- Footer -->
   <footer id="footer">
       <div class="row pad"></div>
