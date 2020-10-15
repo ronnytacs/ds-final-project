@@ -6,7 +6,7 @@ require 'common.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT * FROM person, receivedCerts, certification WHERE person.personID = receivedCerts.personID and receivedCerts.certID = certification.certID group by person.personID';
+$sql = 'SELECT * FROM certification, receivedCerts, person  WHERE receivedCerts.certID = certification.certID and person.personID = receivedCerts.personID';
 $vars = [];
 
 //if (isset($_GET['guid'])) {

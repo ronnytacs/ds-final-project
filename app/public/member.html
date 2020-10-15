@@ -48,7 +48,7 @@
       <div class="col-4">
     <h4>List of Members</h4>
     <p> Please select the name to see the basic information and certifications of the member.</p>
-      <table class="table table-striped" >
+    <table class="table table-striped" >
         <thead>
           <tr>
             <th>#</th>
@@ -56,7 +56,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="p in memberList" :key="i" v-on:click="activeP = p">
+          <tr v-for="p in memberList" v-on:click="activeP = p">
              <th scope="row">{{ p.personID  }}</th>
              <td>{{ p.firstName }} {{ p.lastName }}</td>
           </tr>
@@ -123,17 +123,92 @@
 
       <div class="col-8">
         <h4> Details</h4>
-          <input id="pName" v-bind:value="activePName" readonly>
-          {{activeP.position}}
-          {{ activeP.radioNumber }}
-          {{ activeP.stationNumber }}
-          {{ activeP.email }}
-          {{ activeP.department }}
-          {{ activeP.isActive }}
-          {{ activeP.startDate }}
+        <h5>Basic Information</h5>
+        <form>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Name:</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="pName" v-bind:value="activePName" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Position:</label>
+            <div class="col-sm-4">
+              <input class="form-control" v-bind:value="activeP.position" readonly>
+            </div>
+            <label class="col-sm-2 col-form-label">Department:</label>
+            <div class="col-sm-4">
+              <input class="form-control" v-bind:value="activeP.department" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Radio Number:</label>
+            <div class="col-sm-3">
+              <input class="form-control" v-bind:value="activeP.radioNumber" readonly>
+            </div>
+            <label class="col-sm-3 col-form-label">Station Number:</label>
+            <div class="col-sm-3">
+              <input class="form-control" v-bind:value="activeP.stationNumber" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Current Member:</label>
+            <div class="col-sm-3">
+              <input class="form-control" v-bind:value="activeP.isActive" readonly>
+            </div>
+            <label class="col-sm-2 col-form-label">Start Date:</label>
+            <div class="col-sm-4">
+              <input class="form-control" v-bind:value="activeP.startDate" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="pName" v-bind:value="activeP.email" readonly>
+            </div>
+          </div>
+        </form>
+<br><br>
+          <h5>Certification</h5>
+          <p> The followings are the certifications of {{activePName}}.</p>
+          <table class="table table-striped" >
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Certification Name</th>
+                <th>Date Received</th>
+                <th>Date Expired</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="c in certList" >
+                 <th scope="row">{{ c.certName  }}</th>
+                 <td>{{ c.dateRecieved }}</td>
+                 <td>{{ c.dateExpired }}</td>
+              </tr>
+             </tbody>
+          </table>
+            <!--<table class="table table-striped" >
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Certification Name</th>
+                  <th>Date Received</th>
+                  <th>Date Expired</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="c in certList" :key="i">
+                   <th scope="row">{{ c.certName  }}</th>
+                   <td>{{ c.dateRecieved }}</td>
+                   <td>{{ c.dateExpired }}</td>
+                </tr>
+               </tbody>
+            </table>-->
       </div>
     </div>
     </div>
+  </div>
 </div>
   <!-- Main -->
 
@@ -153,11 +228,11 @@
 
   <!--  JavaScript -->
   <!--Bootstrap JS-->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script type="application/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <!--Local JS files we can delete table sort if not needed-->
-  <script src="js/moment.app.js"></script>
+  <script type="text/javascript" src="js/moment.app.js"></script>
   <script type="text/javascript" src="js/index.app.js"></script>
 
 </body>

@@ -66,7 +66,7 @@ CREATE TABLE receivedCerts(
     personID INTEGER NOT NULL,
     dateRecieved DATE NOT NULL,
     dateExpired DATE,
-    PRIMARY KEY (recievedID),
+    PRIMARY KEY (receivedID),
     FOREIGN KEY (certID) REFERENCES certification(certID),
     FOREIGN KEY (personID) REFERENCES person(personID)
 );

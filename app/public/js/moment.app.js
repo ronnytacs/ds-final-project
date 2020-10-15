@@ -4,14 +4,10 @@ var app = new Vue({
   el: '#Member',
   data: {
     memberList: [],
+    personID:'',
     certList: [],
     activeP: '',
-    function () {
-      return {
-        activeP: this.activeP
-      }},
-    newMemberForm: {},
-    MemberDetailForm:{}
+    newMemberForm: {}
   },
   computed: {
     activePName() {
@@ -54,17 +50,8 @@ var app = new Vue({
 
           this.newMemberForm = this.newPData();
         }
-    ///  handleMemberDetail(evt) {
-        ///  console.log("Member is Selected!");
-        ///  if (!this.activeP) {
-      ///      alert("Error: No Member Selected");
-        ///    return false;
-        ///  }
-      ///    this.MemberDetailForm.personID = this.activeP.personID;
-
-    ///      fetch
-  ///      }
       },
+
 created() {
   fetch("api/records/")
   .then( response => response.json() )
