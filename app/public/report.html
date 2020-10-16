@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <title>Report Page</title>
   <!-- Required meta tags -->
@@ -11,57 +12,75 @@
   <!-- Vue.js -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
   <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">Oconee County Fire Rescue</a>
-        </div>
-        <ul id="menu">
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="member.html">Member</a></li>
-          <li><a class="nav-link" href="cert.html">Certification</a></li>
-          <li><a class="nav-link active" href="report.html">Report</a></li>
-        </ul>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">Oconee County Fire Rescue</a>
       </div>
-    </nav>
-  <!-- Header -->
-    <div id="header">
-      <div class="container">
-      <!-- Logo -->
-        <div id="logo">
-          <h1><a href="index.html">Welcome to Oconee County Fire Rescue</a></h1>
-          <span>Oconee County, GA</span>
-        </div>
-      </div>
+      <ul id="menu">
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="member.html">Member</a></li>
+        <li><a class="nav-link" href="cert.html">Certification</a></li>
+        <li><a class="nav-link active" href="report.html">Report</a></li>
+      </ul>
     </div>
+  </nav>
   <!-- Header -->
-
-  <!-- Main -->
-  <div class="container-fluid">
-    <div class="row" id="triagePage">
-      <div id="cardPaneLeft" class="col cardPane cardPaneLeft">
-          <h1>Select a report</h1>
-
-      </div>
-
-      <div class="col cardPane cardPaneRight">
-        <h1>report name based on option</h1>
+  <div id="header">
+    <div class="container">
+      <!-- Logo -->
+      <div id="logo">
+        <h1><a href="index.html">Welcome to Oconee County Fire Rescue</a></h1>
+        <span>Oconee County, GA</span>
       </div>
     </div>
   </div>
+  <!-- Header -->
+  <!-- Main -->
+  <div id="Report">
+      <div id="main">
+        <div class="container">
+          <h2 id="bigheader">Welcome to the Reports Page</h2>
+        <p>In this page you can view and print reports. Please select a report below.</p>
+        <br><br>
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'stationNumber')">Station Number</button>
+    <button class="tablinks" onclick="openCity(event, 'radioNumber')">Radio Number</button>
+    <button class="tablinks" onclick="openCity(event, 'expCerts')">Expired Certifications</button>
+  </div>
+
+  <!-- Tab content -->
+  <div id="stationNumber" class="tabcontent">
+    <h3>Station Number Report</h3>
+    <p></p>
+  </div>
+
+  <div id="radioNumber" class="tabcontent">
+    <h3>Radio Number Report</h3>
+    <p></p>
+  </div>
+
+  <div id="expCerts" class="tabcontent">
+    <h3>Expired Certifications Report</h3>
+    <p></p>
+  </div>
+</div>
+</div>
+</div>
   <!-- Footer -->
   <footer id="footer">
-      <div class="row pad"></div>
-      <div class="bottom">
-        <center>
+    <div class="row pad"></div>
+    <div class="bottom">
+      <center>
         <p>Conditions of Use
-        <span>&#47;</span> Privacy Notice
-        <span>&#47;</span> Interest-Based Ads
-        <span>&#47;</span> © 2020, Briley Kim
+          <span>&#47;</span> Privacy Notice
+          <span>&#47;</span> Interest-Based Ads
+          <span>&#47;</span> © 2020, Briley Kim
         </p>
-        </center>
-      </div>
+      </center>
+    </div>
   </footer>
 
   <!-- Optional JavaScript -->
@@ -76,5 +95,9 @@
     //tablesort plugin from https://github.com/tristen/tablesort
     new Tablesort(document.getElementById('bookTable'));
   </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src='js/report.js'></script>
 </body>
+
 </html>
