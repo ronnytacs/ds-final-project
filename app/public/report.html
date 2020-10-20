@@ -40,35 +40,86 @@
   <!-- Header -->
   <!-- Main -->
   <div id="Report">
-      <div id="main">
-        <div class="container">
-          <h2 id="bigheader">Welcome to the Reports Page</h2>
-        <p>In this page you can view and print reports. Please select a report below.</p>
+    <div id="main">
+      <div class="container">
+        <h2 id="bigheader">Welcome to the Reports Page</h2>
+        <p>In this page you can view and download reports. Please select a report below.</p>
         <br><br>
-  <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'stationNumber')">Station Number</button>
-    <button class="tablinks" onclick="openCity(event, 'radioNumber')">Radio Number</button>
-    <button class="tablinks" onclick="openCity(event, 'expCerts')">Expired Certifications</button>
-  </div>
+        <div class="tab">
+          <button class="tablinks" onclick="openCity(event, 'stationNumber')">Station Number</button>
+          <button class="tablinks" onclick="openCity(event, 'radioNumber')">Radio Number</button>
+          <button class="tablinks" onclick="openCity(event, 'expCerts')">Expired Certifications</button>
+        </div>
 
-  <!-- Tab content -->
-  <div id="stationNumber" class="tabcontent">
-    <h3>Station Number Report</h3>
-    <p></p>
-  </div>
+        <!-- Tab content -->
+        <div id="stationNumber" class="tabcontent">
+          <h3>Station Number Report</h3>
+          <div id="stationNumberVue">
+            <select v-model="selected">
+              <option v-for="sN in staionNumber">A</option>
+            </select>
+            <span>Selected: {{ selected }}</span>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="p in memberList" v-on:click="activeP = p">
+                <th scope="row">{{ p.firstName }} {{ p.lastName }}</th>
+                <td>{p.email}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-  <div id="radioNumber" class="tabcontent">
-    <h3>Radio Number Report</h3>
-    <p></p>
-  </div>
+        <div id="radioNumber" class="tabcontent">
+          <h3>Radio Number Report</h3>
+          <select v-model="selected">
+            <option v-for="sN in staionNumber">A</option>
+          </select>
+          <span>Selected: {{ selected }}</span>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="p in memberList" v-on:click="activeP = p">
+                <th scope="row">{{ p.firstName }} {{ p.lastName }}</th>
+                <td>{p.email}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-  <div id="expCerts" class="tabcontent">
-    <h3>Expired Certifications Report</h3>
-    <p></p>
+        <div id="expCerts" class="tabcontent">
+          <h3>Expired Certifications Report</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Certification</th>
+                <th>Date Expired</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="p in memberList" v-on:click="activeP = p">
+                <th scope="row">{{ p.firstName }} {{ p.lastName }}</th>
+                <td>{p.cert}</td>
+                <td>{p.dateExpired}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-</div>
   <!-- Footer -->
   <footer id="footer">
     <div class="row pad"></div>
@@ -97,7 +148,11 @@
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src='js/report.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <script src='js/report.js'></script>
+  <script src='js/report.app.js'></script>
+
+
 </body>
 
 </html>
