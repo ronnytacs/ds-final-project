@@ -44,7 +44,8 @@
           <h2 id="bigheader">Certification List</h2>
         </header>
       <p>The followings are the certifications. Feel free to add, change, and delete.</p>
-          <button type="button" class="btn btn-primary float-right goupper" data-toggle="modal" data-target="#exampleModal" >Add</button>
+
+          <!-- <button type="button" class="btn btn-primary float-right goupper" data-toggle="modal" data-target="#exampleModal" >Add</button>
 
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -110,69 +111,43 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!--table-->
-      <table class="table" id="bookTable">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Title</th>
-          <th scope="col">Author(s)</th>
-          <th scope="col">Year Published</th>
-          <th scope="col">Publisher</th>
-          <th scope="col">Page Count</th>
-          <th scope="col">MSRP</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Less</td>
-          <td>Andrew Sean Greer</td>
-          <td>2017</td>
-          <td>Lee Boudreaux Books</td>
-          <td>273</td>
-          <td>$20.69</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>1984</td>
-          <td>George Orwell</td>
-          <td>1961</td>
-          <td>Signet Classic</td>
-          <td>328</td>
-          <td>$6.86</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Outliers: The Story of Success</td>
-          <td>Malcolm Gladwell</td>
-          <td>2011</td>
-          <td>Back Bay Books</td>
-          <td>336</td>
-          <td>$12.99</td>
-        </tr>
-        <tr>
-          <th scope="row">4</th>
-          <td>Factfulness</td>
-          <td>Hans Rosling, Anna Rosling Ola Rosling</td>
-          <td>2020</td>
-          <td>Flatiron Books</td>
-          <td>352</td>
-          <td>$11.59</td>
-        </tr>
-        <tr>
-          <th scope="row">5</th>
-          <td>The Intelligent Investor</td>
-          <td>Benjamin Graham, Jason Zweig, Warren E. Buffet</td>
-          <td>2006</td>
-          <td>Harper Business</td>
-          <td>640</td>
-          <td>$14.29</td>
-        </tr>
-      </tbody>
-      </table>
+      <div id="certTable">
+        <div>
+          <table id="commentTable">
+            <thead>
+              <tr>
+                <th>Certification Id</th>
+                <th>Certification Name</th>
+                <th>Certification Agency </th>
+                <th>Length of Certification</th>
+              </tr>
+            </thead>
+            <tbody id="commentTableBody" v-for="cert in certs">
+                <td> {{ cert.certID }} </td>
+                <td> {{ cert.certName }} </td>
+                <td> {{ cert.certAgency }} </td>
+                <td> {{ cert.standardExpiry }} </td>
+            </tbody>
+          </table>
+        </div>
+        <br><h3> Add a Certificate </h3>
+        <form v-on:submit.prevent="createComment()">
+          <div class="comment">
+            <label for="commentText">Enter Certification Name:</label><br>
+            <input type="text" v-model="newCert.certName" class="form-control" id="commentText" placeholder="Enter the name of the certification" >
+            <br><label for="commentText">Enter Ceritification Agency:</label>
+            <input type="text" v-model="newCert.certAgency" class="form-control" id="commentText" placeholder="Enter the agency of the certification" >
+            <br><label for="commentText">Enter certification length:</label>
+            <input type="text" v-model="newCert.standardExpiry" class="form-control" id="commentText" placeholder="Enter in certification length of years" ><br>
+          </div>
+            <input id="submitNewComment" type="submit" value="Submit" class="button">
+        </form>
+
+
+      </div>
     </div>
   </div>
 
@@ -197,9 +172,9 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
-
-  <script src="js\moment.app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src='js/tablesort.min.js'></script>
+  <script src="js/certs.app.js"></script>
   <script type="text/javascript" src="js/index.app.js"></script>
   <script>
     //tablesort plugin from https://github.com/tristen/tablesort
