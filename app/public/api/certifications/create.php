@@ -18,4 +18,4 @@ $stmt->execute([
 $pk = $db->lastInsertId();
 
 header('HTTP/1.1 303 See Other');
-header('Location: ../comments/?certID='.$pk);
+header('Location: ../certifications/?certID='.$pk);

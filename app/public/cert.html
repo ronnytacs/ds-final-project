@@ -116,7 +116,7 @@
       <!--table-->
       <div id="certTable">
         <div>
-          <table id="commentTable">
+          <table id="dynamicSort">
             <thead>
               <tr>
                 <th>Certification Id</th>
@@ -137,11 +137,11 @@
         <form v-on:submit.prevent="createComment()">
           <div class="comment">
             <label for="commentText">Enter Certification Name:</label><br>
-            <input type="text" v-model="newCert.certName" class="form-control" id="commentText" placeholder="Enter the name of the certification" >
+            <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="Enter the name of the certification" >
             <br><label for="commentText">Enter Ceritification Agency:</label>
-            <input type="text" v-model="newCert.certAgency" class="form-control" id="commentText" placeholder="Enter the agency of the certification" >
+            <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter the agency of the certification" >
             <br><label for="commentText">Enter certification length:</label>
-            <input type="text" v-model="newCert.standardExpiry" class="form-control" id="commentText" placeholder="Enter in certification length of years" ><br>
+            <input type="text" v-model="newCert.standardExpiry" class="form-control" id="standardExpiry" placeholder="Enter in certification length of years" ><br>
           </div>
             <input id="submitNewComment" type="submit" value="Submit" class="button">
         </form>
