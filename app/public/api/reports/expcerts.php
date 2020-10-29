@@ -14,7 +14,11 @@ $vars = [];
 
 if (isset($_GET['personID'])) {
  // This is an example of a parameterized query
-$sql = 'SELECT * FROM person WHERE personID = ?';
+$sql = 'SELECT * FROM person p, receivedCerts rc, certification c
+        WHERE p.personID = rc.personID and
+        rc.certID = c.certID and
+        rc.dateExpired != "0000-00-00"
+        and personID = ?';
 $vars = [ $_GET['personID'] ];
 }
 
