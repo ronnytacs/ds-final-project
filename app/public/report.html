@@ -58,13 +58,16 @@
             <table class="table table-striped" id='stationNumTable'>
               <thead>
                 <tr>
+                  <th>Station Number</th>
                   <th>Name</th>
                   <th>Email</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="p in person" v-on:click="activeP = p">
-                  <th scope="row">{{ p.firstName }} {{ p.lastName }}</th>
+
+                  <th scope="row">{{ p.stationNumber }}</th>
+                  <td> {{ p.firstName }} {{ p.lastName }} </td>
                   <td>{{ p.email }}</td>
                 </tr>
               </tbody>
@@ -88,14 +91,16 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th> Radio Number </th>
                   <th>Name</th>
                   <th>Email</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="p in person" v-on:click="activeP = p">
-                  <th scope="row">{{ p.firstName }} {{ p.lastName }}</th>
-                  <td>{{ p.email }}</td>
+                  <tr v-for="p in person" v-on:click="activeP = p">
+                <th scope="row">{{ p.radioNumber }}</th>
+                <td> {{ p.firstName }} {{ p.lastName }} </td>
+                <td>{{ p.email }}</td>
                 </tr>
               </tbody>
             </table>
@@ -104,6 +109,7 @@
 
         <div id="expCerts" class="tabcontent">
           <h3>Expired Certifications Report</h3>
+          <div id="expiredVue">
           <table class="table table-striped">
             <thead>
               <tr>
@@ -113,13 +119,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="p in memberList" v-on:click="activeP = p">
+              <tr v-for="p in person" v-on:click="activeP = p">
                 <th scope="row">{{ p.firstName }} {{ p.lastName }}</th>
-                <td>{p.cert}</td>
-                <td>{p.dateExpired}</td>
+                <td>{{ p.certName }}</td>
+                <td>{{ p.dateExpired }}</td>
               </tr>
             </tbody>
           </table>
+        </div>
         </div>
       </div>
     </div>
