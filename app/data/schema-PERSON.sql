@@ -1,4 +1,3 @@
-show databases;
 CREATE DATABASE finalProject;
 
 USE finalProject;
@@ -7,22 +6,22 @@ CREATE TABLE person(
   personID INTEGER NOT NULL AUTO_INCREMENT,
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
-  address VARCHAR(255) NOT NULL,
-  city VARCHAR(255) NOT NULL,
-  state VARCHAR(2) NOT NULL,
-  zip VARCHAR(10) NOT NULL,
+  address VARCHAR(255),
+  city VARCHAR(255),
+  state VARCHAR(2),
+  zip VARCHAR(10),
   workPhone VARCHAR(10),
   mobilePhone VARCHAR(10),
   homePhone VARCHAR(10),
-  dateOfBirth DATE NOT NULL,
-  gender VARCHAR(255) NOT NULL,
-  position VARCHAR(255) NOT NULL,
-  radioNumber VARCHAR(255) NOT NULL,
-  stationNumber INTEGER NOT NULL,
-  isActive BOOL NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  startDate DATE NOT NULL,
-  department VARCHAR(255) NOT NULL,
+  dateOfBirth DATE,
+  gender VARCHAR(255),
+  position VARCHAR(255),
+  radioNumber VARCHAR(255),
+  stationNumber INTEGER,
+  isActive BOOL,
+  email VARCHAR(255),
+  startDate DATE,
+  department VARCHAR(255),
   PRIMARY KEY (personID)
 );
 
@@ -61,7 +60,7 @@ INSERT INTO certification(certName, certAgency, standardExpiry) VALUES
 ("Due Regard", "National Registry of Emergency Medical Technicians", 2),
 ("Paramedic", "National Registry of Emergency Medical Technicians", 2);
 
-CREATE TABLE recievedCerts(
+CREATE TABLE receivedCerts(
     recievedID INTEGER NOT NULL AUTO_INCREMENT,
     certID INTEGER NOT NULL,
     personID INTEGER NOT NULL,
@@ -72,8 +71,15 @@ CREATE TABLE recievedCerts(
     FOREIGN KEY (personID) REFERENCES person(personID)
 );
 
-INSERT INTO recievedCerts(certID, personID, dateRecieved, dateExpired) VALUES
-(5, 1, TO_DATE('8/1/2018', 'MM/DD/YYYY'), TO_DATE('8/1/2020', 'MM/DD/YYYY')),
-(1, 1, TO_DATE('7/1/2017', 'MM/DD/YYYY'), TO_DATE('7/1/2019', 'MM/DD/YYYY')),
-(10, 1, TO_DATE('/1/2018', 'MM/DD/YYYY'), TO_DATE('8/1/2020', 'MM/DD/YYYY')),
-(11, 1, TO_DATE('8/1/2018', 'MM/DD/YYYY'), TO_DATE('8/1/2020', 'MM/DD/YYYY')),
+INSERT INTO receivedCerts(certID, personID, dateRecieved, dateExpired) VALUES
+(1, 1, "2017-07-16", "2019-07-16"),
+(4, 1, "2018-08-11", "2020-08-11"),
+(6, 1, "2020-02-10", ""),
+(7, 1, "2020-04-01", ""),
+(8, 2, "2019-09-19", "2020-09-19"),
+(1, 2, "2019-07-17", "2021-07-21"),
+(9, 2, "2019-10-10", "2021-10-10"),
+(10, 3, "2017-09-09", "2019-09-09"),
+(1, 3, "2018-07-15", "2020-07-15"),
+(3, 3, "2017-08-08", "2020-08-08"),
+(9, 3, "2017-10-10", "2019-10-10");
