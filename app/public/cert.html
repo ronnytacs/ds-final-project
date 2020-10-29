@@ -43,7 +43,7 @@
         <header>
           <h2 id="bigheader">Certification List</h2>
         </header>
-      <p>The following are the certifications. Feel free to see which members have which certifications.</p>
+      <p>The following are the certifications. Feel free to see which members have or have had a particular certification.</p>
 
           <!-- <button type="button" class="btn btn-primary float-right goupper" data-toggle="modal" data-target="#exampleModal" >Add</button>
 
@@ -137,7 +137,7 @@
 
         <br><form v-on:click.prevent="fetchMembers()">
           <div class="comment">
-            <label for="commentText">Enter a certification ID to Find Members with that certificate:</label><br>
+            <label for="commentText">Enter a certification ID to find members with that certificate:</label><br>
             <input type="number" v-model="selectedCertID" class="form-control" id="certName" placeholder="Enter a certification ID" >
           </div><br>
             <input type="submit" value="Submit" class="button">
@@ -153,35 +153,53 @@
           <tbody id="commentTableBody" v-for="member in members">
               <td> {{ member.firstName }} </td>
               <td> {{ member.lastName }} </td>
-              <!-- <td> <input v-on:click="deleteComment(cert)" type="submit" value="Delete" class="button"> </td> -->
           </tbody>
         </table>
-        <!-- <br><h3> Add a Certificate </h3>
-        <form v-on:submit.prevent="createComment()">
+    </div>
+<br>
+    <h2> Member List </h2>
+    <p>The following are members of OCFR. Feel free to see which certifications are held by a particular member.</p>
+    <div id="cert2Table">
+        <div>
+          <table id="dynamicSort">
+            <thead>
+              <tr>
+                <th>Member Id</th>
+                <th>Member First Name</th>
+                <th>Member Last Name </th>
+              </tr>
+            </thead>
+            <tbody id="commentTableBody" v-for="people in peoples">
+                <td> {{ people.personID }} </td>
+                <td> {{ people.firstName }} </td>
+                <td> {{ people.lastName }} </td>
+            </tbody>
+          </table>
+        </div>
+        <form v-on:click.prevent="fetchCerts()">
           <div class="comment">
-            <label for="commentText">Enter Certification Name:</label><br>
-            <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="Enter the name of the certification" >
-            <br><label for="commentText">Enter Ceritification Agency:</label>
-            <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter the agency of the certification" >
-            <br><label for="commentText">Enter certification length:</label>
-            <input type="text" v-model="newCert.standardExpiry" class="form-control" id="standardExpiry" placeholder="Enter in certification length of years" ><br>
-          </div>
-            <input id="submitNewComment" type="submit" value="Submit" class="button">
-        </form> -->
-        <!-- <br><h3> Update a Certificate </h3>
-        <form v-on:submit.prevent="updateComment(cert)">
-          <div class="comment">
-            <label for="commentText">Enter Certification ID:</label><br>
-            <input type="text" v-model="newCert.certName" class="form-control" id="certID" placeholder="Enter a certification ID to edit" >
-            <label for="commentText">Enter Certification Name:</label><br>
-            <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="" >
-            <br><label for="commentText">Enter Ceritification Agency:</label>
-            <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter the agency of the certification" >
-            <br><label for="commentText">Enter certification length:</label>
-            <input type="text" v-model="newCert.standardExpiry" class="form-control" id="standardExpiry" placeholder="Enter in certification length of years" ><br>
-          </div>
-            <input id="submitNewComment" type="submit" value="Submit" class="button">
-        </form> -->
+            <label for="commentText">Enter a member ID to see which certificate a member has:</label><br>
+            <input type="number" v-model="selectedPersonID" class="form-control" id="personID" placeholder="Enter a member ID" >
+          </div><br>
+            <input type="submit" value="Submit" class="button">
+        </form>
+        <p><br> Certifications will appear as: </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Certification Id</th>
+              <th>Certification Name</th>
+              <th>Certification Agency </th>
+              <th>Length of Certification</th>
+            </tr>
+          </thead>
+          <tbody id="commentTableBody" v-for="cert in certz">
+            <td> {{ cert.certID }} </td>
+            <td> {{ cert.certName }} </td>
+            <td> {{ cert.certAgency }} </td>
+            <td> {{ cert.standardExpiry }} </td>
+          </tbody>
+        </table>
 
 
       </div>
@@ -212,6 +230,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src='js/tablesort.min.js'></script>
   <script src="js/certs.app.js"></script>
+  <script src="js/certs2.app.js"></script>
   <script type="text/javascript" src="js/index.app.js"></script>
   <script>
     //tablesort plugin from https://github.com/tristen/tablesort

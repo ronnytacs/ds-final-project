@@ -16,6 +16,26 @@ var commentApp = new Vue({
     members:[{
       firstName:'',
       lastName:''
+    }],
+    peoples:[{
+      personID:'',
+      firstName:'',
+      lastName:'',
+      address:'',
+      city:'',
+      state:'',
+      zip:'',
+      workPhone:'',
+      mobilePhone:'',
+      dateOfBirth:'',
+      gender:'',
+      position:'',
+      radioNumber:'',
+      stationNumber:'',
+      isActive:'',
+      email:'',
+      startDate:'',
+      department:''
     }]
   },
 
@@ -30,7 +50,15 @@ var commentApp = new Vue({
         console.log(this.certs);
       });
     },
-  fetchMembers(){
+    // fetchPeople(){
+    //   fetch('api/certifications/peoples.php')
+    //   .then( response => response.json() )
+    //   .then( json => {
+    //     this.peoples=json;
+    //     console.log(this.peoples);
+    //   });
+    // },
+    fetchMembers(){
     fetch('api/certifications/memberFind.php?certID='+this.selectedCertID)
     .then( response => response.json() )
     .then( json => {
@@ -38,31 +66,31 @@ var commentApp = new Vue({
       console.log(this.members);
       });
     },
-    createComment(){
-  fetch('api/certifications/create.php', {
-    method: 'POST',
-    body: JSON.stringify(this.newCert),
-    headers: {
-      "Content-Type": "application/json; charset=utf-8"
-    }
-  })
-  .then( response => response.json() )
-  .then( json => {
-    console.log("Returned from post:", json);
-    this.certs.push(json[0]);
-    this.newUser = this.newCommentData();
-  });
-  console.log("Creating (POSTing)...!")
-  console.log(this.newCert);
-},
-    newCommentData() {
-      return {
-        certID:"",
-        certName:"",
-        certAgency:"",
-        standardExpiry:""
-      }
-    }
+//     createComment(){
+//       fetch('api/certifications/create.php', {
+//         method: 'POST',
+//         body: JSON.stringify(this.newCert),
+//         headers: {
+//       "Content-Type": "application/json; charset=utf-8"
+//     }
+//   })
+//   .then( response => response.json() )
+//   .then( json => {
+//     console.log("Returned from post:", json);
+//     this.certs.push(json[0]);
+//     this.newUser = this.newCommentData();
+//   });
+//   console.log("Creating (POSTing)...!")
+//   console.log(this.newCert);
+// },
+    // newCommentData() {
+    //   return {
+    //     certID:"",
+    //     certName:"",
+    //     certAgency:"",
+    //     standardExpiry:""
+    //   }
+    // }
   },
     created(){
       this.fetchComment();
