@@ -43,7 +43,7 @@
         <header>
           <h2 id="bigheader">Certification List</h2>
         </header>
-      <p>The followings are the certifications. Feel free to add, change, and delete.</p>
+      <p>The following are the certifications. Feel free to see which members have which certifications.</p>
 
           <!-- <button type="button" class="btn btn-primary float-right goupper" data-toggle="modal" data-target="#exampleModal" >Add</button>
 
@@ -130,10 +130,33 @@
                 <td> {{ cert.certName }} </td>
                 <td> {{ cert.certAgency }} </td>
                 <td> {{ cert.standardExpiry }} </td>
+                <!-- <td> <input v-on:click="deleteComment(cert)" type="submit" value="Delete" class="button"> </td> -->
             </tbody>
           </table>
         </div>
-        <br><h3> Add a Certificate </h3>
+
+        <br><form v-on:click.prevent="fetchMembers()">
+          <div class="comment">
+            <label for="commentText">Enter a certification ID to Find Members with that certificate:</label><br>
+            <input type="number" v-model="selectedCertID" class="form-control" id="certName" placeholder="Enter a certification ID" >
+          </div><br>
+            <input type="submit" value="Submit" class="button">
+        </form>
+        <p><br> Member names will appear as: </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Member First Name</th>
+              <th>Member Last Name</th>
+            </tr>
+          </thead>
+          <tbody id="commentTableBody" v-for="member in members">
+              <td> {{ member.firstName }} </td>
+              <td> {{ member.lastName }} </td>
+              <!-- <td> <input v-on:click="deleteComment(cert)" type="submit" value="Delete" class="button"> </td> -->
+          </tbody>
+        </table>
+        <!-- <br><h3> Add a Certificate </h3>
         <form v-on:submit.prevent="createComment()">
           <div class="comment">
             <label for="commentText">Enter Certification Name:</label><br>
@@ -144,7 +167,21 @@
             <input type="text" v-model="newCert.standardExpiry" class="form-control" id="standardExpiry" placeholder="Enter in certification length of years" ><br>
           </div>
             <input id="submitNewComment" type="submit" value="Submit" class="button">
-        </form>
+        </form> -->
+        <!-- <br><h3> Update a Certificate </h3>
+        <form v-on:submit.prevent="updateComment(cert)">
+          <div class="comment">
+            <label for="commentText">Enter Certification ID:</label><br>
+            <input type="text" v-model="newCert.certName" class="form-control" id="certID" placeholder="Enter a certification ID to edit" >
+            <label for="commentText">Enter Certification Name:</label><br>
+            <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="" >
+            <br><label for="commentText">Enter Ceritification Agency:</label>
+            <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter the agency of the certification" >
+            <br><label for="commentText">Enter certification length:</label>
+            <input type="text" v-model="newCert.standardExpiry" class="form-control" id="standardExpiry" placeholder="Enter in certification length of years" ><br>
+          </div>
+            <input id="submitNewComment" type="submit" value="Submit" class="button">
+        </form> -->
 
 
       </div>
