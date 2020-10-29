@@ -24,11 +24,18 @@ var app = new Vue({
       email:""
     },
     activeP: "",
-    activeC:""
+    certifications: [{
+      certName:"",
+      certAgency:"",
+      standardExpiry:""
+    }]
   },
   computed: {
     activePName() {
       return this.activeP ? this.activeP.lastName + ", " + this.activeP.firstName : ""
+    },
+    activePID() {
+      return this.activeP ? this.activeP.personID : ""
     }
   },
   methods: {
@@ -58,12 +65,29 @@ var app = new Vue({
             this.person = json;
             this.newMemberForm = this.newPData();
           });
-
           console.log("Creating (POSTing)...!");
           console.log(this.newMemberForm);
-
+        },
+        getCert(){
+          fetch('api/records/getCert.php?personID='+this.activePID)
+          .then( response => response.json() )
+          .then( json => {
+            this.certifications=json;
+            console.log(this.certifications);
+            });
+          },
+        deleteInfo(p) {
+          fetch('api/records/delete.php', {
+            method: 'POST',
+            body: JSON.stringify(p),
+            headers: {
+              "Content-Type": "application/json; charset=utf-8"
+            }
+          })
+          window.alert("Member was deleted");
+          window.location.href = 'member.html';
         }
-      },
+    },
 
 created() {
   fetch("api/records/")
