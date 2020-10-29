@@ -1,17 +1,34 @@
 /*jshint esversion: 6 */
 
 var app = new Vue({
-  el: '#Member',
+  el: "#Member",
   data: {
-    memberList: [],
-    personID:'',
-    certList: [],
-    activeP: '',
-    newMemberForm: {}
+    person: [{
+      personID:"",
+      firstName:"",
+      lastName:"",
+      position:"",
+      department:"",
+      radioNumber:"",
+      stationNumber:"",
+      email:""
+    }],
+    newMemberForm:{
+      personID:"",
+      firstName:"",
+      lastName:"",
+      position:"",
+      department:"",
+      radioNumber:"",
+      stationNumber:"",
+      email:""
+    },
+    activeP: "",
+    activeC:""
   },
   computed: {
     activePName() {
-      return this.activeP ? this.activeP.lastName + ', ' + this.activeP.firstName : ''
+      return this.activeP ? this.activeP.lastName + ", " + this.activeP.firstName : ""
     }
   },
   methods: {
@@ -26,13 +43,9 @@ var app = new Vue({
         department:""
       }
     },
-    handlenewMemberForm( evt ) {
-          // evt.preventDefault();  // Redundant w/ Vue's submit.prevent
-
-          // TODO: Validate the data!
-
-          fetch('api/records/post.php', {
-            method:'POST',
+    createMember() {
+          fetch("api/records/post.php", {
+            method:"POST",
             body: JSON.stringify(this.newMemberForm),
             headers: {
               "Content-Type": "application/json; charset=utf-8"
@@ -42,13 +55,13 @@ var app = new Vue({
           .then( json => {
             console.log("Returned from post:", json);
             // TODO: test a result was returned!
-            this.memberList.push(json[0]);
+            this.person = json;
+            this.newMemberForm = this.newPData();
           });
 
           console.log("Creating (POSTing)...!");
           console.log(this.newMemberForm);
 
-          this.newMemberForm = this.newPData();
         }
       },
 
@@ -56,11 +69,10 @@ created() {
   fetch("api/records/")
   .then( response => response.json() )
   .then( json => {
-    this.memberList = json;
-
+    this.person = json;
     console.log(json)}
   );
-
   this.newMemberForm = this.newPData();
+
 }
 })

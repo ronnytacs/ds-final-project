@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="css\site.css">
   <!-- Vue.js -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -56,7 +56,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="p in memberList" v-on:click="activeP = p">
+          <tr v-for="p in person" v-on:click="activeP = p">
              <th scope="row">{{ p.personID  }}</th>
              <td>{{ p.firstName }} {{ p.lastName }}</td>
           </tr>
@@ -69,7 +69,7 @@
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <form method="post" v-on:submit.prevent="handlenewMemberForm">
+            <form method="post" v-on:submit.prevent="createMember">
               <div class="modal-header">
                 <h5 class="modal-title">Add a New Member</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -79,36 +79,36 @@
               <div class="modal-body">
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="newPFirstName">First Name</label>
-                    <input type="text" v-model="newMemberForm.firstName" class="form-control" id="newPFirstName" placeholder="Jane">
+                    <label for="newFirstName">First Name</label>
+                    <input type="text" v-model="newMemberForm.firstName" class="form-control" id="FirstName" placeholder="Jane">
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="newPtLastName">Last Name</label>
-                    <input type="text" v-model="newMemberForm.lastName" class="form-control" id="newPLastName" placeholder="Doe">
+                    <label for="newLastName">Last Name</label>
+                    <input type="text" v-model="newMemberForm.lastName" class="form-control" id="LastName" placeholder="Doe">
                   </div>
                 </div>
                 <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="newPPoition">Position</label>
-                  <input type="text" v-model="newMemberForm.position" class="form-control" id="newPPoition">
+                  <label for="newPoition">Position</label>
+                  <input type="text" v-model="newMemberForm.position" class="form-control" id="Poition">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="newPDepartment">Department</label>
-                  <input type="text" v-model="newMemberForm.department" class="form-control" id="newPDepartment">
+                  <label for="newDepartment">Department</label>
+                  <input type="text" v-model="newMemberForm.department" class="form-control" id="Department">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="newPRadioNumber">Radio Number</label>
-                  <input type="text" v-model="newMemberForm.radioNumber" class="form-control" id="newPRadioNumber">
+                  <label for="newRadioNumber">Radio Number</label>
+                  <input type="text" v-model="newMemberForm.radioNumber" class="form-control" id="RadioNumber">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="newPStationNumber">Station Number</label>
-                  <input type="text" v-model="newMemberForm.stationNumber" class="form-control" id="newPStationNumber">
+                  <label for="newStationNumber">Station Number</label>
+                  <input type="text" v-model="newMemberForm.stationNumber" class="form-control" id="StationNumber">
                 </div>
               </div>
                 <div class="form-group">
-                  <label for="newPEmail">Email address</label>
+                  <label for="newEmail">Email address</label>
                   <input type="email" v-model="newMemberForm.email" class="form-control" id="newPEmail" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
               <button type="submit" class="btn btn-primary float-right">Create</button>
@@ -167,6 +167,9 @@
               <input class="form-control" id="pName" v-bind:value="activeP.email" readonly>
             </div>
           </div>
+          <div v-for="c in certification" >>
+              <input class="form-control" id="pName" v-bind:value="activePcert" readonly>
+            </div>
         </form>
 <br><br>
           <h5>Certification</h5>
@@ -181,7 +184,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="c in certList" >
+              <tr v-for="c in certification" >
                  <th scope="row">{{ c.certName  }}</th>
                  <td>{{ c.dateRecieved }}</td>
                  <td>{{ c.dateExpired }}</td>
@@ -198,7 +201,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="c in certList" :key="i">
+                <tr v-for="c in certification" :key="i">
                    <th scope="row">{{ c.certName  }}</th>
                    <td>{{ c.dateRecieved }}</td>
                    <td>{{ c.dateExpired }}</td>
@@ -233,7 +236,6 @@
   <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <!--Local JS files we can delete table sort if not needed-->
   <script type="text/javascript" src="js/moment.app.js"></script>
-  <script type="text/javascript" src="js/index.app.js"></script>
 
 </body>
 </html>
