@@ -24,6 +24,9 @@ var commentApp = new Vue({
       return this.selectedCert ? this.selectedCert.certID : ""
     }
   },
+  mounted() {
+    this.cachedUser = Object.assign({}, this.selectedCert);
+  },
 
   //this.members=json fetch(ap/cert/memfind.php?certID="+this.selectedCertID)
   methods: {
@@ -59,7 +62,10 @@ var commentApp = new Vue({
       this.selectedCert.standardExpiry = this.$refs['standardExpiry'].value;
       this.isEditing = !this.isEditing;
     },
-
+    cancel(){
+      this.selectedCert = Object.assign({}, this.cachedUser);
+      this.isEditing = false;
+    },
     fetchMembers(){
     fetch("api/certifications/memberFind.php?certID="+this.selectedCertID)
     .then( response => response.json() )
