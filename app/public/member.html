@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="css\site.css">
   <!-- Vue.js -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-inverse">
@@ -42,7 +42,7 @@
     <div id="main">
       <div class="container">
         <h2 id="bigheader">Welcome to the Member Page</h2>
-      <p>In this page you can see our former and current member. You can click each member to see the current and expired certifications for that person.</p>
+      <p>In this page you can see our former and current member. You can click each member to (1)view specific information regarding the member and certifications the member have and (2) edit any member information.</p>
 
       <br>
     <div class="row">
@@ -63,7 +63,6 @@
                  <th scope="row">{{ p.personID  }}</th>
                  <td>{{ p.firstName }} {{ p.lastName }}</td>
                  <th><button type="button" class="btn btn-link">View</button>
-                 <button type="button" v-on:click="editInfo(p)" class="btn btn-link">Edit</button>
                  <button type="button"  v-on:click="deleteInfo(p)" class="btn btn-outline-danger">Delete</button></th>
               </tr>
              </tbody>
@@ -128,54 +127,63 @@
       <div class="col-7">
         <h4> Details</h4>
         <h5>Basic Information</h5>
-        <form>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Name:</label>
-            <div class="col-sm-10">
-              <input class="form-control" id="pName" v-bind:value="activePName" readonly>
-            </div>
+        <div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">First Name:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="firstName" :value="activeP.firstName" :disabled="!isEditing" :class="{view: !isEditing}">
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Position:</label>
-            <div class="col-sm-4">
-              <input class="form-control" v-bind:value="activeP.position" readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Department:</label>
-            <div class="col-sm-4">
-              <input class="form-control" v-bind:value="activeP.department" readonly>
-            </div>
+          <label class="col-sm-2 col-form-label">Last Name:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="lastName" :value="activeP.lastName" :disabled="!isEditing" :class="{view: !isEditing}">
           </div>
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Radio Number:</label>
-            <div class="col-sm-3">
-              <input class="form-control" v-bind:value="activeP.radioNumber" readonly>
-            </div>
-            <label class="col-sm-3 col-form-label">Station Number:</label>
-            <div class="col-sm-3">
-              <input class="form-control" v-bind:value="activeP.stationNumber" readonly>
-            </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Position:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="position" :value="activeP.position" :disabled="!isEditing" :class="{view: !isEditing}">
           </div>
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Current Member:</label>
-            <div class="col-sm-3">
-              <input class="form-control" v-bind:value="activeP.isActive" readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Start Date:</label>
-            <div class="col-sm-4">
-              <input class="form-control" v-bind:value="activeP.startDate" readonly>
-            </div>
+          <label class="col-sm-2 col-form-label">Department:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="department" :value="activeP.department" :disabled="!isEditing" :class="{view: !isEditing}">
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Email:</label>
-            <div class="col-sm-10">
-              <input class="form-control" id="pName" v-bind:value="activeP.email" readonly>
-            </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Radio Number:</label>
+          <div class="col-sm-3">
+            <input class="form-control" type="text" ref="radioNumber" :value="activeP.radioNumber" :disabled="!isEditing" :class="{view: !isEditing}">
           </div>
+          <label class="col-sm-3 col-form-label">Station Number:</label>
+          <div class="col-sm-3">
+            <input class="form-control" type="text" ref="stationNumber" :value="activeP.stationNumber" :disabled="!isEditing" :class="{view: !isEditing}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Current Member:</label>
+          <div class="col-sm-3">
+            <input class="form-control" type="text" ref="isActive" :value="activeP.isActive" :disabled="!isEditing" :class="{view: !isEditing}">
+          </div>
+          <label class="col-sm-2 col-form-label">Start Date:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="startDate" :value="activeP.startDate" :disabled="!isEditing" :class="{view: !isEditing}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Email:</label>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" ref="email" :value="activeP.email" :disabled="!isEditing" :class="{view: !isEditing}">
+          </div>
+        </div>
+          <button type="button" class="btn btn-info" v-on:click="isEditing = !isEditing" v-if="!isEditing">
+            Edit
+          </button>
+        <button type="buttom" class="btn btn-info" v-on:click="save" v-else-if="isEditing">
+          Save
+        </button>
+          <button type="button" class="btn btn-secondary" v-if="isEditing" v-on:click="isEditing = false">Cancel</button>
+        </div>
 
-          <!-- <div v-for="c in certification" >>
-              <input class="form-control" id="pName" v-bind:value="activePID" readonly>
-            </div>
-        </form> -->
+
 <br><br>
           <h5>Certification</h5>
           <p> The followings are the certifications of {{activePID}} {{activePName}}.</p>

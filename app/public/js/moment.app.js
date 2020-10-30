@@ -3,6 +3,7 @@
 var app = new Vue({
   el: "#Member",
   data: {
+    isEditing: false,
     person: [{
       personID:"",
       firstName:"",
@@ -11,6 +12,7 @@ var app = new Vue({
       department:"",
       radioNumber:"",
       stationNumber:"",
+      startDate:"",
       email:""
     }],
     newMemberForm:{
@@ -21,8 +23,19 @@ var app = new Vue({
       department:"",
       radioNumber:"",
       stationNumber:"",
+      startDate:"",
       email:""
     },
+    // editMemberForm:{
+    //   firstName:"",
+    //   lastName:"",
+    //   position:"",
+    //   department:"",
+    //   radioNumber:"",
+    //   stationNumber:"",
+    //   startDate:"",
+    //   email:""
+    // },
     activeP: "",
     certifications: [{
       certName:"",
@@ -68,14 +81,45 @@ var app = new Vue({
           console.log("Creating (POSTing)...!");
           console.log(this.newMemberForm);
         },
-        getCert(){
-          fetch('api/records/getCert.php?personID='+this.activePID)
-          .then( response => response.json() )
-          .then( json => {
-            this.certifications=json;
-            console.log(this.certifications);
-            });
-          },
+    getCert(){
+      fetch('api/records/getCert.php?personID='+this.activePID)
+      .then( response => response.json() )
+      .then( json => {
+        this.certifications=json;
+        console.log(this.certifications);
+        });
+      },
+    save() {
+      fetch('api/records/update.php', {
+        method: 'POST',
+        body: JSON.stringify(this.activeP),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      });
+      console.log("Creating (POSTing)...!");
+      console.log(this.activeP);
+      this.activeP.firstName = this.$refs['firstName'].value;
+      this.activeP.lastName = this.$refs['lastName'].value;
+      this.activeP.position = this.$refs['position'].value;
+      this.activeP.department = this.$refs['department'].value;
+      this.activeP.radioNumber = this.$refs['radioNumber'].value;
+      this.activeP.stationNumber = this.$refs['stationNumber'].value;
+      this.activeP.isActive = this.$refs['isActive'].value;
+      this.activeP.startDate = this.$refs['startDate'].value;
+      this.activeP.email = this.$refs['email'].value;
+      this.isEditing = !this.isEditing;
+    },
+    // editInfo(p) {
+    //   fetch('api/records/update.php', {
+    //     method: 'POST',
+    //     body: JSON.stringify(p),
+    //     headers: {
+    //       "Content-Type": "application/json; charset=utf-8"
+    //     }
+    //   })
+    //   window.alert("The change for the member is successfully saved!");
+    // },
         deleteInfo(p) {
           fetch('api/records/delete.php', {
             method: 'POST',
