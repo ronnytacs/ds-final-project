@@ -50,6 +50,25 @@ var commentApp = new Vue({
         console.log(this.certs);
       });
     },
+    getCert(){
+      fetch('api/records/getCert.php?certID='+this.activePID)
+      .then( response => response.json() )
+      .then( json => {
+        this.certifications=json;
+        console.log(this.certifications);
+        });
+      },
+    deleteCert(cert) {
+      fetch('api/certifications/deleteCert.php', {
+        method: 'POST',
+        body: JSON.stringify(cert),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      })
+      window.alert("Certification was deleted");
+      window.location.href = 'cert.html';
+    },
     // fetchPeople(){
     //   fetch('api/certifications/peoples.php')
     //   .then( response => response.json() )
@@ -66,31 +85,31 @@ var commentApp = new Vue({
       console.log(this.members);
       });
     },
-//     createComment(){
-//       fetch('api/certifications/create.php', {
-//         method: 'POST',
-//         body: JSON.stringify(this.newCert),
-//         headers: {
-//       "Content-Type": "application/json; charset=utf-8"
-//     }
-//   })
-//   .then( response => response.json() )
-//   .then( json => {
-//     console.log("Returned from post:", json);
-//     this.certs.push(json[0]);
-//     this.newUser = this.newCommentData();
-//   });
-//   console.log("Creating (POSTing)...!")
-//   console.log(this.newCert);
-// },
-    // newCommentData() {
-    //   return {
-    //     certID:"",
-    //     certName:"",
-    //     certAgency:"",
-    //     standardExpiry:""
-    //   }
-    // }
+    createComment(){
+      fetch('api/certifications/create.php', {
+        method: 'POST',
+        body: JSON.stringify(this.newCert),
+        headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  })
+  .then( response => response.json() )
+  .then( json => {
+    console.log("Returned from post:", json);
+    this.certs.push(json[0]);
+    this.newUser = this.newCommentData();
+  });
+  console.log("Creating (POSTing)...!")
+  console.log(this.newCert);
+},
+    newCommentData() {
+      return {
+        certID:"",
+        certName:"",
+        certAgency:"",
+        standardExpiry:""
+      }
+    }
   },
     created(){
       this.fetchComment();
