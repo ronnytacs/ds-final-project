@@ -40,122 +40,113 @@
   <!-- Main -->
     <div id="main">
       <div class="container">
-        <header>
-          <h2 id="bigheader"> Add a Certification</h2>
-        </header>
-      <p> Add a new certificate here:</p>
+        <h2 id="bigheader"> Welcome to the Certification Page</h2>
+        <p> In this page, you can see the list of certification of our member have. You can add a certification and edit any information regarding certification.</p>
       <div id="certTable">
-        <form >
-          <div class="comment">
-            <label for="certName">Enter a name for the certifcate:</label><br>
-            <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="Enter a certification name" >
-            <label for="certAgency">Enter an agency for the certifcate:</label><br>
-            <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter an agency name" >
-            <label for="certAgency">Enter the number of years the certifaction is valid:</label><br>
-            <input type="number" v-model="newCert.standardExpiry" class="form-control" id="certAgency" placeholder="Enter number of years " >
-          </div><br>
-            <input type="submit" value="Submit" class="button" v-on:click.prevent="createComment()">
-        </form>
+        <div class="row">
+          <div class="col-5">
+            <h4 id="bigheader">Certification List</h4>
+            <p>The following are the certifications. Feel free to see which members have or have had a particular certification.</p>
+              <!--table-->
+            <table class="table" id="dynamicSort">
+              <thead class="thead-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Certification Name</th>
+                  <!-- <th>Certification Agency </th>
+                  <th>Length of Certification</th> -->
+                  <th>Functions</th>
+                </tr>
+              </thead>
+              <tbody v-for="cert in certs" v-on:click="selectedCert = cert; fetchMembers();">
+                  <td> {{ cert.certID }} </td>
+                  <td> {{ cert.certName }} </td>
+                  <!-- <td> {{ cert.certAgency }} </td>
+                  <td> {{ cert.standardExpiry }} </td> -->
+                  <td><button type="button"  class="btn btn-link">View</button>
+                  <button type="button"  v-on:click="deleteCert(cert)" class="btn btn-outline-danger">Delete</button></td>
+                  <!-- <td> <input v-on:click="deleteComment(cert)" type="submit" value="Delete" class="button"> </td> -->
+              </tbody>
+            </table>
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#certmodal" >Add New Certification</button>
+            <!-- <form >
+              <div class="comment">
+                <label for="certName">Enter a name for the certifcate:</label><br>
+                <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="Enter a certification name" >
+                <label for="certAgency">Enter an agency for the certifcate:</label><br>
+                <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter an agency name" >
+                <label for="certAgency">Enter the number of years the certifaction is valid:</label><br>
+                <input type="number" v-model="newCert.standardExpiry" class="form-control" id="certAgency" placeholder="Enter number of years " >
+              </div><br>
+                <input type="submit" value="Submit" class="button" v-on:click.prevent="createComment()">
+            </form> -->
+          </div>
 
-    <h2 id="bigheader">Certification List</h2>
-      <p>The following are the certifications. Feel free to see which members have or have had a particular certification.</p>
 
-      <!--table-->
 
+
+      <div class="col-7">
+        <h4> Details</h4>
+        <h5>Basic Information</h5>
         <div>
-          <table id="dynamicSort">
-            <thead>
-              <tr>
-                <th>Certification Id</th>
-                <th>Certification Name</th>
-                <th>Certification Agency </th>
-                <th>Length of Certification</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody id="commentTableBody" v-for="cert in certs" v-on:click="activeP = p; getCert();">
-                <td> {{ cert.certID }} </td>
-                <td> {{ cert.certName }} </td>
-                <td> {{ cert.certAgency }} </td>
-                <td> {{ cert.standardExpiry }} </td>
-                <td><button type="button"  v-on:click="editCert(cert)" >Edit</button><td>
-                <td><button type="button"  v-on:click="deleteCert(cert)" class="btn btn-outline-danger">Delete</button><td>
-                <!-- <td> <input v-on:click="deleteComment(cert)" type="submit" value="Delete" class="button"> </td> -->
-            </tbody>
-          </table>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Certification Name:</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" ref="certName" :value="selectedCert.certName" :disabled="!isEditing" :class="{view: !isEditing}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Certification Agency:</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" ref="certAgency" :value="selectedCert.certAgency" :disabled="!isEditing" :class="{view: !isEditing}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Standard Expiry:</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" ref="standardExpiry" :value="selectedCert.standardExpiry" :disabled="!isEditing" :class="{view: !isEditing}">
+            </div>
+          </div>
+            <button type="button" class="btn btn-info" v-on:click="isEditing = !isEditing" v-if="!isEditing">
+              Edit
+            </button>
+          <button type="buttom" class="btn btn-info" v-on:click="save" v-else-if="isEditing">
+            Save
+          </button>
+            <button type="button" class="btn btn-secondary" v-if="isEditing" v-on:click="isEditing = false">Cancel</button>
         </div>
 
-        <br><form v-on:click.prevent="fetchMembers()">
+        <!-- <br><form>
           <div class="comment">
             <label for="commentText">Enter a certification ID to find members with that certificate:</label><br>
             <input type="number" v-model="selectedCertID" class="form-control" id="certName" placeholder="Enter a certification ID" >
           </div><br>
             <input type="submit" value="Submit" class="button">
-        </form>
-        <p><br> Member names will appear as: </p>
-        <table>
-          <thead>
+        </form> -->
+        <h5>Member</h5>
+        <p>Member(s) with this certification is(are): </p>
+        <table class="table" >
+          <thead class="thead-light">
             <tr>
               <th>Member First Name</th>
               <th>Member Last Name</th>
             </tr>
           </thead>
           <tbody id="commentTableBody" v-for="member in members">
-              <td> {{ member.firstName }} </td>
+            <tr>
+              <td scope="row"> {{ member.firstName }} </td>
               <td> {{ member.lastName }} </td>
+            </tr>
           </tbody>
         </table>
     </div>
-<br>
-    <h2> Member List </h2>
-    <p>The following are members of OCFR. Feel free to see which certifications are held by a particular member.</p>
-    <div id="cert2Table">
-        <div>
-          <table id="dynamicSort">
-            <thead>
-              <tr>
-                <th>Member Id</th>
-                <th>Member First Name</th>
-                <th>Member Last Name </th>
-              </tr>
-            </thead>
-            <tbody id="commentTableBody" v-for="people in peoples">
-                <td> {{ people.personID }} </td>
-                <td> {{ people.firstName }} </td>
-                <td> {{ people.lastName }} </td>
-            </tbody>
-          </table>
-        </div>
-        <form v-on:click.prevent="fetchCerts()">
-          <div class="comment">
-            <label for="commentText">Enter a member ID to see which certificate a member has:</label><br>
-            <input type="number" v-model="selectedPersonID" class="form-control" id="personID" placeholder="Enter a member ID" >
-          </div><br>
-            <input type="submit" value="Submit" class="button">
-        </form>
-        <p><br> Certifications will appear as: </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Certification Id</th>
-              <th>Certification Name</th>
-              <th>Certification Agency </th>
-              <th>Length of Certification</th>
-            </tr>
-          </thead>
-          <tbody id="commentTableBody" v-for="cert in certz">
-            <td> {{ cert.certID }} </td>
-            <td> {{ cert.certName }} </td>
-            <td> {{ cert.certAgency }} </td>
-            <td> {{ cert.standardExpiry }} </td>
-          </tbody>
-        </table>
+
 
 
       </div>
     </div>
   </div>
+</div>
 
   <!-- Main -->
 
@@ -167,7 +158,7 @@
         <p>Conditions of Use
         <span>&#47;</span> Privacy Notice
         <span>&#47;</span> Interest-Based Ads
-        <span>&#47;</span> © 2020, Briley Kim
+        <span>&#47;</span> © 2020, OCFR
         </p>
         </center>
       </div>
@@ -181,8 +172,6 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src='js/tablesort.min.js'></script>
   <script src="js/certs.app.js"></script>
-  <script src="js/certs2.app.js"></script>
-  <script type="text/javascript" src="js/index.app.js"></script>
   <script>
     //tablesort plugin from https://github.com/tristen/tablesort
     new Tablesort(document.getElementById('bookTable'));

@@ -55,15 +55,15 @@
               <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Edit</th>
+                <th>Functions</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="p in person" v-on:click="activeP = p; getCert();">
-                 <th scope="row">{{ p.personID  }}</th>
+                 <td scope="row">{{ p.personID  }}</td>
                  <td>{{ p.firstName }} {{ p.lastName }}</td>
-                 <th><button type="button" class="btn btn-link">View</button>
-                 <button type="button"  v-on:click="deleteInfo(p)" class="btn btn-outline-danger">Delete</button></th>
+                 <td><button type="button" class="btn btn-link">View</button>
+                 <button type="button"  v-on:click="deleteInfo(p)" class="btn btn-outline-danger">Delete</button></td>
               </tr>
              </tbody>
           </table>
@@ -186,7 +186,7 @@
 
 <br><br>
           <h5>Certification</h5>
-          <p> The followings are the certifications of {{activePID}} {{activePName}}.</p>
+          <p> The followings are the certifications of the member selected.</p>
           <table class="table" >
             <thead class="thead-light">
               <tr>

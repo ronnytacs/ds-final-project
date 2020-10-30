@@ -1,6 +1,7 @@
 var commentApp = new Vue({
   el: '#certTable',
   data: {
+    isEditing: false,
     certs: [{
       certID:'',
       certName:'',
@@ -12,33 +13,17 @@ var commentApp = new Vue({
       certAgency:'',
       standardExpiry:''
     },
-    selectedCertID:'',
+    selectedCert:'',
     members:[{
       firstName:'',
       lastName:''
-    }],
-    peoples:[{
-      personID:'',
-      firstName:'',
-      lastName:'',
-      address:'',
-      city:'',
-      state:'',
-      zip:'',
-      workPhone:'',
-      mobilePhone:'',
-      dateOfBirth:'',
-      gender:'',
-      position:'',
-      radioNumber:'',
-      stationNumber:'',
-      isActive:'',
-      email:'',
-      startDate:'',
-      department:''
     }]
   },
-
+  computed: {
+    selectedCertID() {
+      return this.selectedCert ? this.selectedCert.certID : ""
+    }
+  },
 
   //this.members=json fetch(ap/cert/memfind.php?certID='+this.selectedCertID)
   methods: {
@@ -49,15 +34,7 @@ var commentApp = new Vue({
         this.certs=json;
         console.log(this.certs);
       });
-    },
-    getCert(){
-      fetch('api/records/getCert.php?certID='+this.activePID)
-      .then( response => response.json() )
-      .then( json => {
-        this.certifications=json;
-        console.log(this.certifications);
-        });
-      },
+     },
     deleteCert(cert) {
       fetch('api/certifications/deleteCert.php', {
         method: 'POST',
@@ -69,14 +46,6 @@ var commentApp = new Vue({
       window.alert("Certification was deleted");
       window.location.href = 'cert.html';
     },
-    // fetchPeople(){
-    //   fetch('api/certifications/peoples.php')
-    //   .then( response => response.json() )
-    //   .then( json => {
-    //     this.peoples=json;
-    //     console.log(this.peoples);
-    //   });
-    // },
     fetchMembers(){
     fetch('api/certifications/memberFind.php?certID='+this.selectedCertID)
     .then( response => response.json() )
@@ -91,17 +60,17 @@ var commentApp = new Vue({
         body: JSON.stringify(this.newCert),
         headers: {
       "Content-Type": "application/json; charset=utf-8"
-    }
-  })
-  .then( response => response.json() )
-  .then( json => {
-    console.log("Returned from post:", json);
-    this.certs.push(json[0]);
-    this.newUser = this.newCommentData();
-  });
-  console.log("Creating (POSTing)...!")
-  console.log(this.newCert);
-},
+          }
+        })
+        .then( response => response.json() )
+        .then( json => {
+          console.log("Returned from post:", json);
+          this.certs.push(json[0]);
+          this.newUser = this.newCommentData();
+        });
+        console.log("Creating (POSTing)...!")
+        console.log(this.newCert);
+      },
     newCommentData() {
       return {
         certID:"",
