@@ -1,7 +1,7 @@
 var expApp = new Vue({
   el: '#expiredVue',
   data: {
-    list: [{
+    person: [{
       personID:'',
       firstName: '',
       lastName:'',
