@@ -21,7 +21,10 @@ var reportApp = new Vue({
       email: '',
       startDate:'',
       department:'',
-    }]
+    }],
+    choose: {
+      stationNumber:''
+    }
   },
   methods: {
     fetchPerson(){
@@ -63,6 +66,9 @@ var reportNum = new Vue({
       startDate:'',
       department:'',
     }],
+    choose: {
+      radionNumber:''
+    }
   },
   methods: {
     fetchPerson(){
@@ -77,12 +83,7 @@ var reportNum = new Vue({
   created(){
     this.fetchPerson();
     console.log("fetched");
-  }
-});
+    this.stationNumber = new Set(this.person.stationNumber)
 
-new Vue({
-  el: '#radioNumFilter',
-  data: {
-    checkedNames: [],
   }
 });

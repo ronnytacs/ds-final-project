@@ -1,7 +1,7 @@
 var expApp = new Vue({
   el: '#expiredVue',
   data: {
-    person: [{
+    list: [{
       personID:'',
       firstName: '',
       lastName:'',
@@ -28,15 +28,18 @@ var expApp = new Vue({
       certName: '',
       certAgency: '',
       standardExpiry: ''
-    }]
+    }],
+    choose: {
+      certName:''
+    }
   },
   methods: {
     fetchPerson(){
       fetch('api/reports/expcerts.php')
         .then( response => response.json() )
         .then( json => {
-          this.person = json;
-          console.log(this.person);
+          this.list = json;
+          console.log(this.list);
         });
     }
   },

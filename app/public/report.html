@@ -55,6 +55,13 @@
         <div id="stationNumber" class="tabcontent">
           <h3>Station Number Report</h3>
           <div id="stationNumberVue">
+            <h4>Filter by Station Number</h4>
+            <select v-model="choose.stationNumber">
+                <option value="" selected>All</option>
+                <option v-for='p in person'>{{ p.stationNumber }}</option>
+              </select>
+          <br>
+
             <table class="table table-striped" id='stationNumTable'>
               <thead>
                 <tr>
@@ -64,7 +71,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="p in person" v-on:click="activeP = p">
+                <tr v-for="p in person"  v-if="choose.stationNumber =='' || choose.stationNumber == p.stationNumber || p.stationNumber == 9999"  >
                   <th scope="row">{{ p.stationNumber }}</th>
                   <td> {{ p.firstName }} {{ p.lastName }} </td>
                   <td>{{ p.email }}</td>
@@ -76,17 +83,14 @@
 
         <div id="radioNumber" class="tabcontent">
           <h3>Radio Number Report</h3>
-          <div id="radioNumFilter">
-            <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
-            <label for="jack">Jack</label>
-            <input type="checkbox" id="john" value="John" v-model="checkedNames">
-            <label for="john">John</label>
-            <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
-            <label for="mike">Mike</label>
-            <br>
-            <span>Checked names: {{ checkedNames }}</span>
-          </div>
           <div id="radioNumberVue">
+            <h4>Filter by Radio Number</h4>
+            <select v-model="choose.radioNumber">
+                <option value="" selected>All</option>
+                <option v-for='p in person'>{{ p.radioNumber }}</option>
+              </select>
+          <br>
+
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -96,7 +100,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="p in person" v-on:click="activeP = p">
+                <tr v-for="p in person" v-if="choose.radioNumber =='' || choose.radioNumber == p.radioNumber">
                 <th scope="row">{{ p.radioNumber }}</th>
                 <td> {{ p.firstName }} {{ p.lastName }} </td>
                 <td>{{ p.email }}</td>
@@ -105,10 +109,18 @@
             </table>
           </div>
         </div>
+      </div>
 
         <div id="expCerts" class="tabcontent">
           <h3>Expired Certifications Report</h3>
           <div id="expiredVue">
+            <h4>Filter by Certification</h4>
+            <select v-model="choose.certName">
+                <option value="" selected>All</option>
+                <option v-for='p in list'>{{ p.certName }}</option>
+              </select>
+          <br>
+
           <table class="table table-striped">
             <thead>
               <tr>
@@ -118,7 +130,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="p in person" v-on:click="activeP = p">
+              <tr v-for="p in list" v-if="choose.certName =='' || choose.certName == p.certName">
                 <th scope="row">{{ p.firstName }} {{ p.lastName }}</th>
                 <td>{{ p.certName }}</td>
                 <td>{{ p.dateExpired }}</td>
