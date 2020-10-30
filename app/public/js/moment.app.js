@@ -36,9 +36,6 @@ var app = new Vue({
     }]
   },
   computed: {
-    activePName() {
-      return this.activeP ? this.activeP.lastName + ", " + this.activeP.firstName : ""
-    },
     activePID() {
       return this.activeP ? this.activeP.personID : ""
     }
@@ -81,7 +78,7 @@ var app = new Vue({
         console.log(this.certifications);
         });
       },
-    save() {
+    updateInfo() {
       fetch('api/records/update.php', {
         method: 'POST',
         body: JSON.stringify(this.activeP),
@@ -89,8 +86,6 @@ var app = new Vue({
           "Content-Type": "application/json; charset=utf-8"
         }
       });
-      console.log("Creating (POSTing)...!");
-      console.log(this.activeP);
       this.activeP.firstName = this.$refs['firstName'].value;
       this.activeP.lastName = this.$refs['lastName'].value;
       this.activeP.position = this.$refs['position'].value;
