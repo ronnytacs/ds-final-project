@@ -79,6 +79,7 @@
               </tbody>
             </table>
           </div>
+          <input value="Export as CSV" type="button" onclick="$('#stationNumTable').table2CSV({header:['Station Number','Name','Email']})">
         </div>
 
         <div id="radioNumber" class="tabcontent">
@@ -171,6 +172,8 @@
   <script src='js/report.js'></script>
   <script src='js/report.app.js'></script>
   <script src='js/expcerts.app.js'></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js" ></script>
+  <script type="text/javascript" src="js/html2CSV.js" ></script>
 </body>
 
 </html>
