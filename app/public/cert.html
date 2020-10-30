@@ -41,80 +41,27 @@
     <div id="main">
       <div class="container">
         <header>
-          <h2 id="bigheader">Certification List</h2>
+          <h2 id="bigheader"> Add a Certification</h2>
         </header>
+      <p> Add a new certificate here:</p>
+      <div id="certTable">
+        <form >
+          <div class="comment">
+            <label for="certName">Enter a name for the certifcate:</label><br>
+            <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="Enter a certification name" >
+            <label for="certAgency">Enter an agency for the certifcate:</label><br>
+            <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter an agency name" >
+            <label for="certAgency">Enter the number of years the certifaction is valid:</label><br>
+            <input type="number" v-model="newCert.standardExpiry" class="form-control" id="certAgency" placeholder="Enter number of years " >
+          </div><br>
+            <input type="submit" value="Submit" class="button" v-on:click.prevent="createComment()">
+        </form>
+
+    <h2 id="bigheader">Certification List</h2>
       <p>The following are the certifications. Feel free to see which members have or have had a particular certification.</p>
 
-          <!-- <button type="button" class="btn btn-primary float-right goupper" data-toggle="modal" data-target="#exampleModal" >Add</button>
-
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Add your Recommendation</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group col-12">
-                    <label for="book-title" class="col-form-label">Title</label>
-                    <textarea rows="1" class="form-control" id="inputTitle"></textarea>
-                  </div>
-                  <div class="form-group col-12">
-                    <label for="book-author" class="col-form-label">Author(s)</label>
-                    <textarea rows="1" class="form-control" id="inputAuthor"></textarea>
-                    <small id="authorHelp" class="form-text text-muted">
-                      If multiple authors, please use comma(,) to seperate each author.
-                    </small>
-                </div>
-                <div class="form-group col-12">
-                  <label for="book-publisher" class="col-form-label">Publisher</label>
-                  <textarea rows="1" class="form-control" id="inputPublisher"></textarea>
-                </div>
-                <div class="form-row">
-                <div class="form-group col-md-4">
-                  <label for="book-publishedyear">Year Published</label>
-                  <select id="inputYear" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>2020</option>
-                    <option>2019</option>
-                    <option>2018</option>
-                    <option>2017</option>
-                    <option>2016</option>
-                    <option>2015</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="book-pages">Page Count</label>
-                  <select id="inputPage" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>200</option>
-                    <option>201</option>
-                    <option>202</option>
-                    <option>203</option>
-                    <option>204</option>
-                    <option>205</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="book-price">MSRP</label>
-                  <input type="number" step="0.01" class="form-control" id="inputPrice">
-                </div>
-              </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button onClick="myFunction()" class="btn btn-primary">Add</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <!--table-->
-      <div id="certTable">
+
         <div>
           <table id="dynamicSort">
             <thead>
@@ -123,13 +70,17 @@
                 <th>Certification Name</th>
                 <th>Certification Agency </th>
                 <th>Length of Certification</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
             </thead>
-            <tbody id="commentTableBody" v-for="cert in certs">
+            <tbody id="commentTableBody" v-for="cert in certs" v-on:click="activeP = p; getCert();">
                 <td> {{ cert.certID }} </td>
                 <td> {{ cert.certName }} </td>
                 <td> {{ cert.certAgency }} </td>
                 <td> {{ cert.standardExpiry }} </td>
+                <td><button type="button"  v-on:click="editCert(cert)" >Edit</button><td>
+                <td><button type="button"  v-on:click="deleteCert(cert)" class="btn btn-outline-danger">Delete</button><td>
                 <!-- <td> <input v-on:click="deleteComment(cert)" type="submit" value="Delete" class="button"> </td> -->
             </tbody>
           </table>
