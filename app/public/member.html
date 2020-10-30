@@ -108,7 +108,7 @@
                         </div>
                         <div class="form-group col-md-6">
                           <label for="newStationNumber">Station Number</label>
-                          <input type="text" v-model="newMemberForm.stationNumber" class="form-control" id="StationNumber" required>
+                          <input type="number" v-model="newMemberForm.stationNumber" class="form-control" id="StationNumber" required>
                         </div>
                       </div>
                       <div class="form-group">
@@ -158,7 +158,7 @@
           </div>
           <label class="col-sm-3 col-form-label">Station Number:</label>
           <div class="col-sm-3">
-            <input class="form-control" type="text" ref="stationNumber" :value="activeP.stationNumber" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.stationNumber">
+            <input class="form-control" type="number" ref="stationNumber" :value="activeP.stationNumber" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.stationNumber">
           </div>
         </div>
         <div class="form-group row">
@@ -168,7 +168,7 @@
           </div>
           <label class="col-sm-2 col-form-label">Start Date:</label>
           <div class="col-sm-4">
-            <input class="form-control" type="text" ref="startDate" :value="activeP.startDate" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.startDate">
+            <input class="form-control" type="date" ref="startDate" :value="activeP.startDate" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.startDate">
           </div>
         </div>
         <div class="form-group row">
