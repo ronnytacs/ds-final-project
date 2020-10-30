@@ -63,14 +63,14 @@
                  <td scope="row">{{ p.personID  }}</td>
                  <td>{{ p.firstName }} {{ p.lastName }}</td>
                  <td><button type="button" class="btn btn-link">View</button>
-                 <button type="button"  v-on:click="deleteInfo(p)" class="btn btn-outline-danger">Delete</button></td>
+                 <button type="button"  v-on:click.prevent="deleteInfo(p)" class="btn btn-outline-danger">Delete</button></td>
               </tr>
              </tbody>
           </table>
           <!-- Add Member Button-->
           <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >Add New Member</button>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="AddMember" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <form method="post" v-on:submit.prevent="createMember">
@@ -84,39 +84,42 @@
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="newFirstName">First Name</label>
-                          <input type="text" v-model="newMemberForm.firstName" class="form-control" id="FirstName" placeholder="Jane">
+                          <input type="text" v-model="newMemberForm.firstName" class="form-control" id="FirstName" placeholder="Jane" required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="newLastName">Last Name</label>
-                          <input type="text" v-model="newMemberForm.lastName" class="form-control" id="LastName" placeholder="Doe">
+                          <input type="text" v-model="newMemberForm.lastName" class="form-control" id="LastName" placeholder="Doe" required>
                         </div>
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="newPoition">Position</label>
-                          <input type="text" v-model="newMemberForm.position" class="form-control" id="Poition">
+                          <input type="text" v-model="newMemberForm.position" class="form-control" id="Poition" required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="newDepartment">Department</label>
-                          <input type="text" v-model="newMemberForm.department" class="form-control" id="Department">
+                          <input type="text" v-model="newMemberForm.department" class="form-control" id="Department" required>
                         </div>
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="newRadioNumber">Radio Number</label>
-                          <input type="text" v-model="newMemberForm.radioNumber" class="form-control" id="RadioNumber">
+                          <input type="text" v-model="newMemberForm.radioNumber" class="form-control" id="RadioNumber" required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="newStationNumber">Station Number</label>
-                          <input type="text" v-model="newMemberForm.stationNumber" class="form-control" id="StationNumber">
+                          <input type="text" v-model="newMemberForm.stationNumber" class="form-control" id="StationNumber" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="newEmail">Email address</label>
-                        <input type="email" v-model="newMemberForm.email" class="form-control" id="newPEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="email" v-model="newMemberForm.email" class="form-control" id="newPEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary float-right">Create</button>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary float-right">Create</button>
+                      <button type="button" class="btn btn-default float-right" data-dismiss="modal"> Close</button>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -127,63 +130,61 @@
       <div class="col-7">
         <h4> Details</h4>
         <h5>Basic Information</h5>
-        <div>
+        <form method="post" v-on:submit.prevent="save()">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">First Name:</label>
           <div class="col-sm-4">
-            <input class="form-control" type="text" ref="firstName" :value="activeP.firstName" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="firstName" :value="activeP.firstName" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.firstName">
           </div>
           <label class="col-sm-2 col-form-label">Last Name:</label>
           <div class="col-sm-4">
-            <input class="form-control" type="text" ref="lastName" :value="activeP.lastName" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="lastName" :value="activeP.lastName" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.lastName">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Position:</label>
           <div class="col-sm-4">
-            <input class="form-control" type="text" ref="position" :value="activeP.position" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="position" :value="activeP.position" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.position">
           </div>
           <label class="col-sm-2 col-form-label">Department:</label>
           <div class="col-sm-4">
-            <input class="form-control" type="text" ref="department" :value="activeP.department" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="department" :value="activeP.department" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.department">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">Radio Number:</label>
           <div class="col-sm-3">
-            <input class="form-control" type="text" ref="radioNumber" :value="activeP.radioNumber" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="radioNumber" :value="activeP.radioNumber" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.radioNumber">
           </div>
           <label class="col-sm-3 col-form-label">Station Number:</label>
           <div class="col-sm-3">
-            <input class="form-control" type="text" ref="stationNumber" :value="activeP.stationNumber" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="stationNumber" :value="activeP.stationNumber" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.stationNumber">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">Current Member:</label>
           <div class="col-sm-3">
-            <input class="form-control" type="text" ref="isActive" :value="activeP.isActive" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="isActive" :value="activeP.isActive" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.isActive">
           </div>
           <label class="col-sm-2 col-form-label">Start Date:</label>
           <div class="col-sm-4">
-            <input class="form-control" type="text" ref="startDate" :value="activeP.startDate" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="startDate" :value="activeP.startDate" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.startDate">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Email:</label>
           <div class="col-sm-10">
-            <input class="form-control" type="text" ref="email" :value="activeP.email" :disabled="!isEditing" :class="{view: !isEditing}">
+            <input class="form-control" type="text" ref="email" :value="activeP.email" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.email">
           </div>
         </div>
-          <button type="button" class="btn btn-info" v-on:click="isEditing = !isEditing" v-if="!isEditing">
+          <button type="button" class="btn btn-info" v-on:click.prevent="isEditing = !isEditing" v-if="!isEditing">
             Edit
           </button>
-        <button type="buttom" class="btn btn-info" v-on:click="save" v-else-if="isEditing">
+        <button type="submit" class="btn btn-info" v-else-if="isEditing">
           Save
         </button>
-          <button type="button" class="btn btn-secondary" v-if="isEditing" v-on:click="isEditing = false">Cancel</button>
-        </div>
-
-
+          <button type="button" class="btn btn-secondary" v-if="isEditing" v-on:click.prevent="isEditing = false">Cancel</button>
+        </form>
 <br><br>
           <h5>Certification</h5>
           <p> The followings are the certifications of the member selected.</p>

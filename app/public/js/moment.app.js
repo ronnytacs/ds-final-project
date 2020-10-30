@@ -12,6 +12,7 @@ var app = new Vue({
       department:"",
       radioNumber:"",
       stationNumber:"",
+      isActive:"",
       startDate:"",
       email:""
     }],
@@ -23,19 +24,10 @@ var app = new Vue({
       department:"",
       radioNumber:"",
       stationNumber:"",
+      isActive:"",
       startDate:"",
       email:""
     },
-    // editMemberForm:{
-    //   firstName:"",
-    //   lastName:"",
-    //   position:"",
-    //   department:"",
-    //   radioNumber:"",
-    //   stationNumber:"",
-    //   startDate:"",
-    //   email:""
-    // },
     activeP: "",
     certifications: [{
       certName:"",
@@ -110,16 +102,6 @@ var app = new Vue({
       this.activeP.email = this.$refs['email'].value;
       this.isEditing = !this.isEditing;
     },
-    // editInfo(p) {
-    //   fetch('api/records/update.php', {
-    //     method: 'POST',
-    //     body: JSON.stringify(p),
-    //     headers: {
-    //       "Content-Type": "application/json; charset=utf-8"
-    //     }
-    //   })
-    //   window.alert("The change for the member is successfully saved!");
-    // },
         deleteInfo(p) {
           fetch('api/records/delete.php', {
             method: 'POST',

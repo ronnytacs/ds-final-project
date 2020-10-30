@@ -5,7 +5,8 @@ require 'common.php';
 $db = DbConnection::getConnection();
 
 $stmt = $db->prepare(
-  'UPDATE person  SET firstName = ?, lastName = ?, position = ?, department = ?, radioNumber = ?, stationNumber = ?, isActive = ?, startDate = ?, email = ? WHERE personID = ?'
+   // 'UPDATE person  SET firstName = ? WHERE personID = ?'
+ 'UPDATE person  SET firstName = ?, lastName = ?, position = ?, department = ?, radioNumber = ?, stationNumber = ?, isActive = ?, startDate = ?, email = ? WHERE personID = ?'
 );
 
 $stmt->execute([
@@ -17,8 +18,6 @@ $stmt->execute([
   $_POST['stationNumber'],
   $_POST['isActive'],
   $_POST['startDate'],
-  $_POST['email']
+  $_POST['email'],
+  $_POST['personID']
 ]);
-
-
-header('HTTP/1.1 303 See Other');
