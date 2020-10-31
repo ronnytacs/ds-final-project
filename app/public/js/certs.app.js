@@ -1,84 +1,73 @@
 var commentApp = new Vue({
-  el: '#certTable',
+  el: "#certTable",
   data: {
+    isEditing: false,
     certs: [{
-      certID:'',
-      certName:'',
-      certAgency:'',
-      standardExpiry:''
+      certID:"",
+      certName:"",
+      certAgency:"",
+      standardExpiry:""
     }],
     newCert:{
-      certName:'',
-      certAgency:'',
-      standardExpiry:''
+      certName:"",
+      certAgency:"",
+      standardExpiry:""
     },
-    selectedCertID:'',
+    selectedCert:"",
     members:[{
-      firstName:'',
-      lastName:''
-    }],
-    peoples:[{
-      personID:'',
-      firstName:'',
-      lastName:'',
-      address:'',
-      city:'',
-      state:'',
-      zip:'',
-      workPhone:'',
-      mobilePhone:'',
-      dateOfBirth:'',
-      gender:'',
-      position:'',
-      radioNumber:'',
-      stationNumber:'',
-      isActive:'',
-      email:'',
-      startDate:'',
-      department:''
+      firstName:"",
+      lastName:""
     }]
   },
+  computed: {
+    selectedCertID() {
+      return this.selectedCert ? this.selectedCert.certID : ""
+    }
+  },
+  mounted() {
+    this.cachedUser = Object.assign({}, this.selectedCert);
+  },
 
-
-  //this.members=json fetch(ap/cert/memfind.php?certID='+this.selectedCertID)
+  //this.members=json fetch(ap/cert/memfind.php?certID="+this.selectedCertID)
   methods: {
     fetchComment(){
-      fetch('api/certifications/index.php')
+      fetch("api/certifications/index.php")
       .then( response => response.json() )
       .then( json => {
         this.certs=json;
         console.log(this.certs);
       });
-    },
-    getCert(){
-      fetch('api/records/getCert.php?certID='+this.activePID)
-      .then( response => response.json() )
-      .then( json => {
-        this.certifications=json;
-        console.log(this.certifications);
-        });
-      },
+     },
     deleteCert(cert) {
-      fetch('api/certifications/deleteCert.php', {
-        method: 'POST',
+      fetch("api/certifications/deleteCert.php", {
+        method: "POST",
         body: JSON.stringify(cert),
         headers: {
           "Content-Type": "application/json; charset=utf-8"
         }
       })
       window.alert("Certification was deleted");
-      window.location.href = 'cert.html';
+      window.location.href = "cert.html";
     },
-    // fetchPeople(){
-    //   fetch('api/certifications/peoples.php')
-    //   .then( response => response.json() )
-    //   .then( json => {
-    //     this.peoples=json;
-    //     console.log(this.peoples);
-    //   });
-    // },
+    updateCert() {
+      fetch('api/certifications/certUpdate.php', {
+        method: 'POST',
+        body: JSON.stringify(this.selectedCert),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      });
+      this.selectedCert.certName = this.$refs['certName'].value;
+      this.selectedCert.certAgency = this.$refs['certAgency'].value;
+      this.selectedCert.standardExpiry = this.$refs['standardExpiry'].value;
+      this.isEditing = !this.isEditing;
+    },
+    cancel(){
+      this.selectedCert = Object.assign({}, this.cachedUser);
+      this.isEditing = false;
+    },
     fetchMembers(){
-    fetch('api/certifications/memberFind.php?certID='+this.selectedCertID)
+    fetch("api/certifications/memberFind.php?certID="+this.selectedCertID)
     .then( response => response.json() )
     .then( json => {
       this.members=json;
@@ -86,22 +75,22 @@ var commentApp = new Vue({
       });
     },
     createComment(){
-      fetch('api/certifications/create.php', {
-        method: 'POST',
+      fetch("api/certifications/create.php", {
+        method: "POST",
         body: JSON.stringify(this.newCert),
         headers: {
       "Content-Type": "application/json; charset=utf-8"
-    }
-  })
-  .then( response => response.json() )
-  .then( json => {
-    console.log("Returned from post:", json);
-    this.certs.push(json[0]);
-    this.newUser = this.newCommentData();
-  });
-  console.log("Creating (POSTing)...!")
-  console.log(this.newCert);
-},
+          }
+        })
+        .then( response => response.json() )
+        .then( json => {
+          console.log("Returned from post:", json);
+          this.certs.push(json[0]);
+          this.newUser = this.newCommentData();
+        });
+        console.log("Creating (POSTing)...!")
+        console.log(this.newCert);
+      },
     newCommentData() {
       return {
         certID:"",

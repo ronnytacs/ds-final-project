@@ -6,10 +6,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="css\site.css">
   <!-- Vue.js -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-inverse">
@@ -38,124 +38,142 @@
   <!-- Header -->
 
   <!-- Main -->
+<div id="certTable">
     <div id="main">
       <div class="container">
-        <header>
-          <h2 id="bigheader"> Add a Certification</h2>
-        </header>
-      <p> Add a new certificate here:</p>
-      <div id="certTable">
-        <form >
-          <div class="comment">
-            <label for="certName">Enter a name for the certifcate:</label><br>
-            <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="Enter a certification name" >
-            <label for="certAgency">Enter an agency for the certifcate:</label><br>
-            <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter an agency name" >
-            <label for="certAgency">Enter the number of years the certifaction is valid:</label><br>
-            <input type="number" v-model="newCert.standardExpiry" class="form-control" id="certAgency" placeholder="Enter number of years " >
-          </div><br>
-            <input type="submit" value="Submit" class="button" v-on:click.prevent="createComment()">
-        </form>
+        <h2 id="bigheader"> Welcome to the Certification Page</h2>
+        <p> In this page, you can see the list of certification of our member have. You can add a certification and edit any information regarding certification.</p>
+<br><br>
+        <div class="row">
+          <div class="col-5">
+            <h4>Certification List</h4>
+            <p>The following are the certifications. Feel free to see which members have or have had a particular certification.</p>
+              <!--table-->
+            <table class="table" id="dynamicSort">
+              <thead class="thead-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Certification Name</th>
+                  <!-- <th>Certification Agency </th>
+                  <th>Length of Certification</th> -->
+                  <th>Functions</th>
+                </tr>
+              </thead>
+              <tbody v-for="cert in certs" v-on:click="selectedCert = cert; fetchMembers();">
+                  <td> {{ cert.certID }} </td>
+                  <td> {{ cert.certName }} </td>
+                  <!-- <td> {{ cert.certAgency }} </td>
+                  <td> {{ cert.standardExpiry }} </td> -->
+                  <td><button type="button"  class="btn btn-link">View</button>
+                  <button type="button"  v-on:click.prevent="deleteCert(cert)" class="btn btn-outline-danger">Delete</button></td>
+                  <!-- <td> <input v-on:click="deleteComment(cert)" type="submit" value="Delete" class="button"> </td> -->
+              </tbody>
+            </table>
 
-    <h2 id="bigheader">Certification List</h2>
-      <p>The following are the certifications. Feel free to see which members have or have had a particular certification.</p>
+            <!--Form Starts-->
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#certmodal" >Add New Certification</button>
 
-      <!--table-->
+            <div class="modal fade" id="certmodal" tabindex="-1" role="dialog" aria-labelledby="AddCert" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <form method="post" v-on:submit.prevent="createComment()">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Add a New Certification</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-row">
+                        <label for="certName">Certificatino Name</label><br>
+                        <input type="text" v-model="newCert.certName" class="form-control" id="certName" placeholder="Enter a certification name" required>
+                      </div>
+                      <div class="form-row">
+                        <label for="certName">Certification Agency</label><br>
+                        <input type="text" v-model="newCert.certAgency" class="form-control" id="certAgency" placeholder="Enter an agency name" required>
+                      </div>
+                      <div class="form-row">
+                        <label for="certAgency">Standard Expiry</label><br>
+                        <input type="number" v-model="newCert.standardExpiry" class="form-control" id="certAgency" placeholder="Enter number of years the certifaction is valid" required >
+                    </div>
+                  </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary float-right">Create</button>
+                      <button type="button" class="btn btn-default float-right" data-dismiss="modal"> Close</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
 
-        <div>
-          <table id="dynamicSort">
-            <thead>
-              <tr>
-                <th>Certification Id</th>
-                <th>Certification Name</th>
-                <th>Certification Agency </th>
-                <th>Length of Certification</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody id="commentTableBody" v-for="cert in certs" v-on:click="activeP = p; getCert();">
-                <td> {{ cert.certID }} </td>
-                <td> {{ cert.certName }} </td>
-                <td> {{ cert.certAgency }} </td>
-                <td> {{ cert.standardExpiry }} </td>
-                <td><button type="button"  v-on:click="editCert(cert)" >Edit</button><td>
-                <td><button type="button"  v-on:click="deleteCert(cert)" class="btn btn-outline-danger">Delete</button><td>
-                <!-- <td> <input v-on:click="deleteComment(cert)" type="submit" value="Delete" class="button"> </td> -->
-            </tbody>
-          </table>
-        </div>
+          </div>
 
-        <br><form v-on:click.prevent="fetchMembers()">
+
+
+
+      <div class="col-7">
+        <h4> Details</h4>
+        <h5>Basic Information</h5>
+        <form>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Certification Name:</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" ref="certName" :value="selectedCert.certName" :disabled="!isEditing" :class="{view: !isEditing}" v-model="selectedCert.certName">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Certification Agency:</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" ref="certAgency" :value="selectedCert.certAgency" :disabled="!isEditing" :class="{view: !isEditing}" v-model="selectedCert.certAgency">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Standard Expiry:</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="number" ref="standardExpiry" :value="selectedCert.standardExpiry" :disabled="!isEditing" :class="{view: !isEditing}" v-model="selectedCert.standardExpiry">
+            </div>
+          </div>
+          <button type="button" class="btn btn-info" v-on:click.prevent="isEditing = !isEditing" v-if="!isEditing" v-model="selectedCert.certName">
+            Edit
+          </button>
+          <button method="post" v-on:submit.prevent="updateCert()" type="submit" class="btn btn-info" v-else-if="isEditing">
+            Save
+          </button>
+            <button type="button" class="btn btn-secondary" v-if="isEditing" v-on:click="cancel">Cancel</button>
+          </form>
+
+        <!-- <br><form>
           <div class="comment">
             <label for="commentText">Enter a certification ID to find members with that certificate:</label><br>
             <input type="number" v-model="selectedCertID" class="form-control" id="certName" placeholder="Enter a certification ID" >
           </div><br>
             <input type="submit" value="Submit" class="button">
-        </form>
-        <p><br> Member names will appear as: </p>
-        <table>
-          <thead>
+        </form> -->
+        <br><br>
+        <h5>Member</h5>
+        <p>Member(s) with this certification is(are): </p>
+        <table class="table" >
+          <thead class="thead-light">
             <tr>
               <th>Member First Name</th>
               <th>Member Last Name</th>
             </tr>
           </thead>
           <tbody id="commentTableBody" v-for="member in members">
-              <td> {{ member.firstName }} </td>
+            <tr>
+              <td scope="row"> {{ member.firstName }} </td>
               <td> {{ member.lastName }} </td>
+            </tr>
           </tbody>
         </table>
     </div>
-<br>
-    <h2> Member List </h2>
-    <p>The following are members of OCFR. Feel free to see which certifications are held by a particular member.</p>
-    <div id="cert2Table">
-        <div>
-          <table id="dynamicSort">
-            <thead>
-              <tr>
-                <th>Member Id</th>
-                <th>Member First Name</th>
-                <th>Member Last Name </th>
-              </tr>
-            </thead>
-            <tbody id="commentTableBody" v-for="people in peoples">
-                <td> {{ people.personID }} </td>
-                <td> {{ people.firstName }} </td>
-                <td> {{ people.lastName }} </td>
-            </tbody>
-          </table>
-        </div>
-        <form v-on:click.prevent="fetchCerts()">
-          <div class="comment">
-            <label for="commentText">Enter a member ID to see which certificate a member has:</label><br>
-            <input type="number" v-model="selectedPersonID" class="form-control" id="personID" placeholder="Enter a member ID" >
-          </div><br>
-            <input type="submit" value="Submit" class="button">
-        </form>
-        <p><br> Certifications will appear as: </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Certification Id</th>
-              <th>Certification Name</th>
-              <th>Certification Agency </th>
-              <th>Length of Certification</th>
-            </tr>
-          </thead>
-          <tbody id="commentTableBody" v-for="cert in certz">
-            <td> {{ cert.certID }} </td>
-            <td> {{ cert.certName }} </td>
-            <td> {{ cert.certAgency }} </td>
-            <td> {{ cert.standardExpiry }} </td>
-          </tbody>
-        </table>
+
 
 
       </div>
     </div>
   </div>
+</div>
 
   <!-- Main -->
 
@@ -167,7 +185,7 @@
         <p>Conditions of Use
         <span>&#47;</span> Privacy Notice
         <span>&#47;</span> Interest-Based Ads
-        <span>&#47;</span> © 2020, Briley Kim
+        <span>&#47;</span> © 2020, OCFR
         </p>
         </center>
       </div>
@@ -176,16 +194,19 @@
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="application/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!--Local JS files we can delete table sort if not needed-->
+  <script type="text/javascript" src="js/certs.app.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src='js/tablesort.min.js'></script>
   <script src="js/certs.app.js"></script>
-  <script src="js/certs2.app.js"></script>
-  <script type="text/javascript" src="js/index.app.js"></script>
   <script>
     //tablesort plugin from https://github.com/tristen/tablesort
     new Tablesort(document.getElementById('bookTable'));
-  </script>
+  </script> -->
 </body>
 </html>

@@ -9,10 +9,8 @@ $stmt = $db->prepare(
 );
 
 $stmt->execute([
-  $_POST['certID'],
   $_POST['certName'],
   $_POST['certAgency'],
-  $_POST['standardExpiry']
+  $_POST['standardExpiry'],
+  $_POST['certID']
 ]);
-
-header('HTTP/1.1 303 See Other');

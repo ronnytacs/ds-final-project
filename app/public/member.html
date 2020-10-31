@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="css\site.css">
   <!-- Vue.js -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-inverse">
@@ -42,7 +42,7 @@
     <div id="main">
       <div class="container">
         <h2 id="bigheader">Welcome to the Member Page</h2>
-      <p>In this page you can see our former and current member. You can click each member to see the current and expired certifications for that person.</p>
+      <p>In this page you can see our former and current member. You can click each member to (1)view specific information regarding the member and certifications the member have and (2) edit any member information.</p>
 
       <br>
     <div class="row">
@@ -55,23 +55,22 @@
               <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Edit</th>
+                <th>Functions</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="p in person" v-on:click="activeP = p; getCert();">
-                 <th scope="row">{{ p.personID  }}</th>
+                 <td scope="row">{{ p.personID  }}</td>
                  <td>{{ p.firstName }} {{ p.lastName }}</td>
-                 <th><button type="button" class="btn btn-link">View</button>
-                 <button type="button" v-on:click="editInfo(p)" class="btn btn-link">Edit</button>
-                 <button type="button"  v-on:click="deleteInfo(p)" class="btn btn-outline-danger">Delete</button></th>
+                 <td><button type="button" class="btn btn-link">View</button>
+                 <button type="button"  v-on:click.prevent="deleteInfo(p)" class="btn btn-outline-danger">Delete</button></td>
               </tr>
              </tbody>
           </table>
           <!-- Add Member Button-->
           <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >Add New Member</button>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="AddMember" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <form method="post" v-on:submit.prevent="createMember">
@@ -85,39 +84,42 @@
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="newFirstName">First Name</label>
-                          <input type="text" v-model="newMemberForm.firstName" class="form-control" id="FirstName" placeholder="Jane">
+                          <input type="text" v-model="newMemberForm.firstName" class="form-control" id="FirstName" placeholder="Jane" required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="newLastName">Last Name</label>
-                          <input type="text" v-model="newMemberForm.lastName" class="form-control" id="LastName" placeholder="Doe">
+                          <input type="text" v-model="newMemberForm.lastName" class="form-control" id="LastName" placeholder="Doe" required>
                         </div>
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="newPoition">Position</label>
-                          <input type="text" v-model="newMemberForm.position" class="form-control" id="Poition">
+                          <input type="text" v-model="newMemberForm.position" class="form-control" id="Poition" required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="newDepartment">Department</label>
-                          <input type="text" v-model="newMemberForm.department" class="form-control" id="Department">
+                          <input type="text" v-model="newMemberForm.department" class="form-control" id="Department" required>
                         </div>
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="newRadioNumber">Radio Number</label>
-                          <input type="text" v-model="newMemberForm.radioNumber" class="form-control" id="RadioNumber">
+                          <input type="text" v-model="newMemberForm.radioNumber" class="form-control" id="RadioNumber" required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="newStationNumber">Station Number</label>
-                          <input type="text" v-model="newMemberForm.stationNumber" class="form-control" id="StationNumber">
+                          <input type="number" v-model="newMemberForm.stationNumber" class="form-control" id="StationNumber" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="newEmail">Email address</label>
-                        <input type="email" v-model="newMemberForm.email" class="form-control" id="newPEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="email" v-model="newMemberForm.email" class="form-control" id="newPEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary float-right">Create</button>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary float-right">Create</button>
+                      <button type="button" class="btn btn-default float-right" data-dismiss="modal"> Close</button>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -128,57 +130,64 @@
       <div class="col-7">
         <h4> Details</h4>
         <h5>Basic Information</h5>
-        <form>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Name:</label>
-            <div class="col-sm-10">
-              <input class="form-control" id="pName" v-bind:value="activePName" readonly>
-            </div>
+        <form method="post" v-on:submit.prevent="updateInfo()">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">First Name:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="firstName" :value="activeP.firstName" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.firstName">
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Position:</label>
-            <div class="col-sm-4">
-              <input class="form-control" v-bind:value="activeP.position" readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Department:</label>
-            <div class="col-sm-4">
-              <input class="form-control" v-bind:value="activeP.department" readonly>
-            </div>
+          <label class="col-sm-2 col-form-label">Last Name:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="lastName" :value="activeP.lastName" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.lastName">
           </div>
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Radio Number:</label>
-            <div class="col-sm-3">
-              <input class="form-control" v-bind:value="activeP.radioNumber" readonly>
-            </div>
-            <label class="col-sm-3 col-form-label">Station Number:</label>
-            <div class="col-sm-3">
-              <input class="form-control" v-bind:value="activeP.stationNumber" readonly>
-            </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Position:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="position" :value="activeP.position" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.position">
           </div>
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Current Member:</label>
-            <div class="col-sm-3">
-              <input class="form-control" v-bind:value="activeP.isActive" readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Start Date:</label>
-            <div class="col-sm-4">
-              <input class="form-control" v-bind:value="activeP.startDate" readonly>
-            </div>
+          <label class="col-sm-2 col-form-label">Department:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" ref="department" :value="activeP.department" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.department">
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Email:</label>
-            <div class="col-sm-10">
-              <input class="form-control" id="pName" v-bind:value="activeP.email" readonly>
-            </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Radio Number:</label>
+          <div class="col-sm-3">
+            <input class="form-control" type="text" ref="radioNumber" :value="activeP.radioNumber" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.radioNumber">
           </div>
-
-          <!-- <div v-for="c in certification" >>
-              <input class="form-control" id="pName" v-bind:value="activePID" readonly>
-            </div>
-        </form> -->
+          <label class="col-sm-3 col-form-label">Station Number:</label>
+          <div class="col-sm-3">
+            <input class="form-control" type="number" ref="stationNumber" :value="activeP.stationNumber" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.stationNumber">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Current Member:</label>
+          <div class="col-sm-3">
+            <input class="form-control" type="text" ref="isActive" :value="activeP.isActive" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.isActive">
+          </div>
+          <label class="col-sm-2 col-form-label">Start Date:</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="date" ref="startDate" :value="activeP.startDate" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.startDate">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Email:</label>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" ref="email" :value="activeP.email" :disabled="!isEditing" :class="{view: !isEditing}" v-model="activeP.email">
+          </div>
+        </div>
+          <button type="button" class="btn btn-info" v-on:click.prevent="isEditing = !isEditing" v-if="!isEditing">
+            Edit
+          </button>
+        <button type="submit" class="btn btn-info" v-else-if="isEditing">
+          Save
+        </button>
+          <button type="button" class="btn btn-secondary" v-if="isEditing" v-on:click.prevent="isEditing = false">Cancel</button>
+        </form>
 <br><br>
           <h5>Certification</h5>
-          <p> The followings are the certifications of {{activePID}} {{activePName}}.</p>
+          <p> The followings are the certifications of the member selected.</p>
           <table class="table" >
             <thead class="thead-light">
               <tr>

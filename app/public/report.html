@@ -62,8 +62,8 @@
             </select>
             <br>
 
-            <table class="table table-striped" id='stationNumTable'>
-              <thead>
+            <table class="table" id='stationNumTable'>
+              <thead class="thead-dark">
                 <tr>
                   <th>Station Number</th>
                   <th>Name</th>
@@ -92,8 +92,8 @@
             </select>
             <br>
 
-            <table class="table table-striped" id='radioNumTable'>
-              <thead>
+            <table class="table" id='radioNumTable'>
+              <thead class="thead-dark">
                 <tr>
                   <th> Radio Number </th>
                   <th>Name</th>
@@ -118,12 +118,22 @@
           <div id="expiredVue">
             <h4>Filter by Certification</h4>
             <select v-model="choose.certName">
+<<<<<<< HEAD
               <option value="" selected>All</option>
               <option v-for='p in person'> {{ p.certName }} </option>
             </select>
             <br>
             <table class="table table-striped" id='expiredCertTable'>
               <thead>
+=======
+                <option value="" selected>All</option>
+                <option v-for='p in person'>{{ p.certName }}</option>
+              </select>
+          <br>
+
+            <table class="table" id='expiredCertTable'>
+              <thead class="thead-dark">
+>>>>>>> a111eca93eaa7b50495076f9607ac96aede63e7d
                 <tr>
                   <th>Certification Name</th>
                   <th>Name</th>
@@ -152,7 +162,7 @@
         <p>Conditions of Use
           <span>&#47;</span> Privacy Notice
           <span>&#47;</span> Interest-Based Ads
-          <span>&#47;</span> © 2020, Briley Kim
+          <span>&#47;</span> © 2020, OCFR
         </p>
       </center>
     </div>

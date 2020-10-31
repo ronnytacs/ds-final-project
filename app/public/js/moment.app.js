@@ -3,6 +3,7 @@
 var app = new Vue({
   el: "#Member",
   data: {
+    isEditing: false,
     person: [{
       personID:"",
       firstName:"",
@@ -11,6 +12,8 @@ var app = new Vue({
       department:"",
       radioNumber:"",
       stationNumber:"",
+      isActive:"",
+      startDate:"",
       email:""
     }],
     newMemberForm:{
@@ -21,6 +24,8 @@ var app = new Vue({
       department:"",
       radioNumber:"",
       stationNumber:"",
+      isActive:"",
+      startDate:"",
       email:""
     },
     activeP: "",
@@ -31,9 +36,6 @@ var app = new Vue({
     }]
   },
   computed: {
-    activePName() {
-      return this.activeP ? this.activeP.lastName + ", " + this.activeP.firstName : ""
-    },
     activePID() {
       return this.activeP ? this.activeP.personID : ""
     }
@@ -68,14 +70,33 @@ var app = new Vue({
           console.log("Creating (POSTing)...!");
           console.log(this.newMemberForm);
         },
-        getCert(){
-          fetch('api/records/getCert.php?personID='+this.activePID)
-          .then( response => response.json() )
-          .then( json => {
-            this.certifications=json;
-            console.log(this.certifications);
-            });
-          },
+    getCert(){
+      fetch('api/records/getCert.php?personID='+this.activePID)
+      .then( response => response.json() )
+      .then( json => {
+        this.certifications=json;
+        console.log(this.certifications);
+        });
+      },
+    updateInfo() {
+      fetch('api/records/update.php', {
+        method: 'POST',
+        body: JSON.stringify(this.activeP),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      });
+      this.activeP.firstName = this.$refs['firstName'].value;
+      this.activeP.lastName = this.$refs['lastName'].value;
+      this.activeP.position = this.$refs['position'].value;
+      this.activeP.department = this.$refs['department'].value;
+      this.activeP.radioNumber = this.$refs['radioNumber'].value;
+      this.activeP.stationNumber = this.$refs['stationNumber'].value;
+      this.activeP.isActive = this.$refs['isActive'].value;
+      this.activeP.startDate = this.$refs['startDate'].value;
+      this.activeP.email = this.$refs['email'].value;
+      this.isEditing = !this.isEditing;
+    },
         deleteInfo(p) {
           fetch('api/records/delete.php', {
             method: 'POST',
