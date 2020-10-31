@@ -87,15 +87,15 @@
           <div id="radioNumberVue">
             <h4>Filter by Radio Number</h4>
             <select v-model="choose.radioNumber">
-              <option value="" selected> All </option>
+              <option value="" selected>All</option>
               <option v-for='p in person'>{{ p.radioNumber }}</option>
             </select>
             <br>
 
-            <table class="table" id='radioNumTable'>
+            <table class="table" id='radioNumTable' data-sortable>
               <thead class="thead-dark">
                 <tr>
-                  <th> Radio Number </th>
+                  <th>Radio Number</th>
                   <th>Name</th>
                   <th>Email</th>
                 </tr>
@@ -118,32 +118,22 @@
           <div id="expiredVue">
             <h4>Filter by Certification</h4>
             <select v-model="choose.certName">
-<<<<<<< HEAD
-              <option value="" selected>All</option>
-              <option v-for='p in person'> {{ p.certName }} </option>
-            </select>
-            <br>
-            <table class="table table-striped" id='expiredCertTable'>
-              <thead>
-=======
                 <option value="" selected>All</option>
                 <option v-for='p in person'>{{ p.certName }}</option>
               </select>
           <br>
-
-            <table class="table" id='expiredCertTable'>
+            <table class="table" id='expiredCertTable' data-sortable>
               <thead class="thead-dark">
->>>>>>> a111eca93eaa7b50495076f9607ac96aede63e7d
                 <tr>
-                  <th>Certification Name</th>
                   <th>Name</th>
+                  <th>Certification Name</th>
                   <th>Date Expired</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="p in person" v-if="choose.certName =='' || choose.certName == p.certName">
-                  <th scope="row">{{ p.certName }} </th>
-                  <td>{{ p.firstName }} {{ p.lastName }} </td>
+                  <th scope="row"> {{ p.firstName }} {{ p.lastName }}  </th>
+                  <td>{{ p.certName }}</td>
                   <td>{{ p.dateExpired }}</td>
                 </tr>
               </tbody>
@@ -172,17 +162,13 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
-  <script src='js/tablesort.min.js'></script>
-  <script>
-    //tablesort plugin from https://github.com/tristen/tablesort
-    new Tablesort(document.getElementById('stationNumTable'));
-  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
   <script src='js/report.js'></script>
   <script src='js/report.app.js'></script>
   <script src='js/expcerts.app.js'></script>
+    <script src='js/radionNumber.app.js'></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
   <script src="js/html2CSV.js"></script>
 </body>

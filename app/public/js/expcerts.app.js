@@ -38,8 +38,8 @@ var expApp = new Vue({
       fetch('api/reports/expcerts.php')
         .then( response => response.json() )
         .then( json => {
-          this.list = json;
-          console.log(this.list);
+          this.person = json;
+          console.log(this.person);
         });
     }
   },

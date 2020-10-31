@@ -1,5 +1,6 @@
-var reportApp = new Vue({
-  el: '#stationNumberVue',
+
+var reportNum = new Vue({
+  el: '#radioNumberVue',
   data: {
     person: [{
       personID:'',
@@ -23,11 +24,9 @@ var reportApp = new Vue({
       department:'',
     }],
     choose: {
-      stationNumber:''
+      radioNumber:''
     },
-    stationNumberFilter: [{
-      filter: ''
-    }]
+    radioNumberFilter: []
   },
   methods: {
     fetchPerson(){
