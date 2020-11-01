@@ -114,7 +114,7 @@
       <div class="col-7">
         <h4> Details</h4>
         <h5>Basic Information</h5>
-        <form>
+        <form v-on:submit.prevent="updateCert()">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Certification Name:</label>
             <div class="col-sm-10">
@@ -133,13 +133,14 @@
               <input class="form-control" type="number" ref="standardExpiry" :value="selectedCert.standardExpiry" :disabled="!isEditing" :class="{view: !isEditing}" v-model="selectedCert.standardExpiry">
             </div>
           </div>
-          <button type="button" class="btn btn-info" v-on:click.prevent="isEditing = !isEditing" v-if="!isEditing" v-model="selectedCert.certName">
+          <button type="button" class="btn btn-info" v-on:click.prevent="isEditing = !isEditing" v-if="!isEditing">
             Edit
           </button>
-          <button method="post" v-on:submit.prevent="updateCert()" type="submit" class="btn btn-info" v-else-if="isEditing">
+          <button type="submit" class="btn btn-info" v-else-if="isEditing">
             Save
           </button>
-            <button type="button" class="btn btn-secondary" v-if="isEditing" v-on:click="cancel">Cancel</button>
+            <button type="button" class="btn btn-secondary" v-if="isEditing" v-on:click.prevent="isEditing = false">Cancel</button>
+          </form>
           </form>
 
         <!-- <br><form>
